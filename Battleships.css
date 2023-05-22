@@ -1,0 +1,71 @@
+body {
+    background-color: rgb(150, 185, 245);
+    background-image: url("https://media.istockphoto.com/id/1306235331/vector/simplified-world-map-vector-illustration.jpg?s=612x612&w=0&k=20&c=upPEHqLBNiakoRE4qBO0hfFiuINfNKg-3SZyhSraKP0=");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.Title {
+    text-align: center;
+    margin: 0;
+    position: absolute;
+    top: 20%;
+    left: 40.7%;
+    -ms-transform: translate(-10%, -10%);
+    transform: translate(-10%, -10%);
+    font-size: 85px;
+    font-family: "Lucida Handwriting", cursive;
+    color: rgb(119, 45, 45);
+
+}
+
+.centreButtons {
+    text-align: center;
+    margin: 0;
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+
+    
+}
+.button { 
+    padding: 5px; 
+    background-color: rgb(119, 45, 45); 
+    border: 1px solid #666; 
+    color: rgb(34, 255, 0); 
+
+  } 
+   
+.button:hover { 
+    color: rgb(255, 0, 0); 
+  } 
+
+.PHOTO1 {
+    border-radius: 90px;
+    margin: 0;
+    position: absolute;
+    top: 35%;
+    left: 20%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    max-width: 400px;
+    height: auto;
+    rotate: -15deg
+
+}
+
+.PHOTO2 {
+    border-radius: 90px;
+    margin: 0;
+    position: absolute;
+    top: 45%;
+    left: 80%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    max-width: 400px;
+    height: auto;
+    rotate: 15deg
+}
+
