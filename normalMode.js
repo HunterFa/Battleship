@@ -13,13 +13,17 @@ var allshots = []
 var allshotsCount = 0
 var playerTurn = true
 var botfirehistory = []
-var botfirecount = 1
+var botfirecount = 0
 var botLastShot = []
 var botHitCount = 0
 var hits = 0
 var hitcheck1 = 0
 var hitcheck2 = 0
 var peter = 0
+var tfHistory = []
+var botSC1 = 0
+var botSC2 = 0
+var openLoop = 0
 
 document.getElementById("guessDiv").style.display = "none"
 
@@ -166,7 +170,7 @@ function submit() {
         submitt = true
         
         for (f = 1; f<6; f++) {
-            var botBoatPos= Math.floor((Math.random() * 99) + 0) //position of center cell of boat
+            var botBoatPos= Math.floor((Math.random() * 99) + 1) //position of center cell of boat
             var botPosTop = botBoatPos- 10
             var botPosBottom = botBoatPos- - 10
             var botPosLeft = botBoatPos- 1
@@ -377,262 +381,1053 @@ function cellClicked2(tablecell2) {
     }
  
 
-}  
+}  // peter is cool
 
 function botGuess () {
-    if (hits<15) {
-        var l = 0
-        var hit = false
-
-        for (i=1; i<botfirecount; i++){
-            botLastShot[i] = botfirehistory[botfirecount - l] 
-            l = l + 1
-        }
-
-        for (i=1; i<6; i++){
-
-            var j = boatNum[i]
-            var h = botLastShot [1]
-            
-            if ( h == j.substring(0,2) ){
-                hit = true
-            }   
-            
-            else if( h == j.substring(2,4) ){
-                hit = true
-            }
-                                
-            else if( h == j.substring(4,6) ){
-                hit = true
-            }
-            
-            else if( h == j.substring(0,2) ){
-                hit = true
-            }
-                
-            else if( h == j.substring(2,4) ){
-                hit = true
-            }
-                
-            else if( h == j.substring(4,6) ){
-                hit = true
-            }
-                
-            else if( h == j.substring(0,2) ){
-                hit = true
-            }
-            
-            else if( h == j.substring(2,4) ){
-                hit = true
-            }
-                
-            else if( h == j.substring(4,6) ){
-                hit = true
-            } 
-
-        }
-
-        
-        if (hit == true ) {
-            hitBoatGuess ()
-        }
-        else {
-            randomGuess ()
-
-        }
-    
-    }
-
-    else if (hits == 15) {
-        alert("Bot Wins")
-    }
-
-}
-
-function hitBoatGuess () {
-    var random = Math.floor((Math.random() * 4) + 1)
-    var check = false;
-    var hit = false
-    
-    if (random == 1) {
-        fire = botfirehistory[botfirecount] - 1
-    }
-    else if (random == 2) {
-        fire = botfirehistory[botfirecount] - - 1
-    }
-    else if (random == 3) {
-        fire = botfirehistory[botfirecount] - 10
-    }
-    else if (random == 4) {
-        fire = botfirehistory[botfirecount] - - 10
-    }
-
-    for (i=0;i<botfirecount+1;i++){
-        if (fire == botfirehistory[i]) {
-            check = true
-        }
-    }
-    if (check == false) {
-        for (i=1; i<6; i++){
-
-            var j = boatNum[i]
-
-
-            if ( fire == j.substring(0,2) ){
-                hit = true
-            }   
-
-            else if( fire == j.substring(2,4) ){
-                hit = true
-            }
-                        
-            else if( fire == j.substring(4,6) ){
-                hit = true
-            }
-        
-            else if( fire == j.substring(0,2) ){
-                hit = true
-            }
-        
-            else if( fire == j.substring(2,4) ){
-                hit = true
-            }
-        
-            else if( fire == j.substring(4,6) ){
-                hit = true
-            }
-        
-            else if( fire == j.substring(0,2) ){
-                hit = true
-            }
-
-            else if( fire == j.substring(2,4) ){
-                hit = true
-            }
-        
-            else if( fire == j.substring(4,6) ){
-                hit = true
-            } 
-
-            else{
-
-            }
-        }
-
-        if (hit == true) {
-            document.getElementById(fire).style.backgroundColor = "red"
-            hits = hits + 1
-            peter = 0
-        }
-
-        else {
-            document.getElementById(fire).style.backgroundColor = "white"
-            peter = 0
-        }
-        
-        botfirecount = botfirecount + 1
-        botfirehistory[botfirecount] = fire
-    }
-    else if (peter < 5){
-        peter = peter + 1
-        hitBoatGuess ()
-    }
-
-    else {
-        randomGuess ()
-    }
 
     document.getElementById("playerDiv").style.display = "block";
     document.getElementById("guessDiv").style.display = "none";
-}
 
 
-
-
-function randomGuess () {
-    
-    playerTurn = true;
-    var fire = Math.floor((Math.random() * 99) + 0)
     var check = false
     var hit = false
+    var botsunk = false
+    var m = 1
+    botSC1 = 0
 
-        
-    for (i=0;i<botfirecount+1;i++){
-        if (fire == botfirehistory[i]) {
-            check = true
+    for (q=1;q<6;q++) { // check if boat is sunk by checking each sell of a boat and if all variables a, b and c all equal true then boat is sunk
+        var a = false
+        var b = false
+        var c = false
+
+        for (i=1; i<botfirecount+1; i++) {
+            
+            var j = botfirehistory[i]
+            var l = boatNum [m]
+
+            if( l.substring(0,2) == j ){
+                a = true
+            }  
+
+            if( l.substring(2,4) == j ){
+                b = true
+            }  
+
+            if( l.substring(4,6) == j ){
+                c = true
+            }  
         }
+
+        if (a == true && b == true && c == true) {
+            botSC1 = botSC1 + 1
+        }
+        m = m + 1
     }
 
 
-    if (fire < 10) {
-        fire = "0" + fire
+
+    for (i=1; i<5; i++) {
+        tfHistory[i] = false
     }
 
+    m = 1
 
-    if (check == false) {
-            
-        for (i=1; i<6; i++){
+    for (q = 1; q < 6; q++) {
+        var k = 3
+        var h = 1
 
-        var j = boatNum[i]
+        for (i = 1; i < 5; i++) {
+
+            var j = botfirehistory[botfirecount - k]
+            var l = boatNum [m]
+
+
+            if( l.substring(0,2) == j ){
+                tfHistory[h] = true
+            }  
+
+            else if( l.substring(2,4) == j ){
+                tfHistory[h] = true
+            }
+                    
+            else if( l.substring(4,6) == j ){
+                tfHistory[h] = true
+            }
+
+            k = k - 1
+            h = h + 1
+
+        }
+        m = m + 1
+    }
+
+    if (botSC1 ==! botSC2) {
+        botsunk = true
+    }
+
+    botSC2 = botSC1
+
+    
+    if (tfHistory[1] == false && tfHistory[2] == false && tfHistory[3] == false && tfHistory[4] == false 
+       || tfHistory[1] == true && tfHistory[2] == true && tfHistory[3] == true && tfHistory[4] == false
+       || tfHistory[1] == true && tfHistory[2] == false && tfHistory[3] == true && tfHistory[4] == true
+       || tfHistory[1] == false && tfHistory[2] == true && tfHistory[3] == true && tfHistory[4] == true
+       || tfHistory[1] == true && tfHistory[2] == true && tfHistory[3] == false && tfHistory[4] == false
+       || tfHistory[1] == true && tfHistory[2] == true && tfHistory[3] == false && tfHistory[4] == true
+       || tfHistory[1] == true && tfHistory[2] == false && tfHistory[3] == true && tfHistory[4] == false
+       || tfHistory[1] == true && tfHistory[2] == true && tfHistory[3] == true && tfHistory[4] == true
+       || botsunk == true 
+       ) 
+       {
         
-        if ( fire == j.substring(0,2) ){
-            hit = true
-        }   
-        
-        else if( fire == j.substring(2,4) ){
-            hit = true
-        }
-                            
-        else if( fire == j.substring(4,6) ){
-            hit = true
-        }
+        playerTurn = true;
+        var fire = Math.floor((Math.random() * 99) + 0)
+        var check = false
+        var hit = false
+
             
-        else if( fire == j.substring(0,2) ){
-            hit = true
+        for (i=0;i<botfirecount+1;i++){
+            if (fire == botfirehistory[i]) {
+                check = true
+            }
         }
+
+
+        if (fire < 10) {
+            fire = "0" + fire
+        }
+
+
+        if (check == false) {
+                
+            for (i=1; i<6; i++){
+
+                var j = boatNum[i]
             
-        else if( fire == j.substring(2,4) ){
-            hit = true
+            
+                if ( fire == j.substring(0,2) ){
+                    hit = true
+                }   
+            
+                else if( fire == j.substring(2,4) ){
+                    hit = true
+                }
+                                
+                else if( fire == j.substring(4,6) ){
+                    hit = true
+                }
+                
+                else if( fire == j.substring(0,2) ){
+                    hit = true
+                }
+                
+                else if( fire == j.substring(2,4) ){
+                    hit = true
+                }
+                
+                else if( fire == j.substring(4,6) ){
+                    hit = true
+                }
+                
+                else if( fire == j.substring(0,2) ){
+                    hit = true
+                }
+            
+                else if( fire == j.substring(2,4) ){
+                    hit = true
+                }
+                
+                else if( fire == j.substring(4,6) ){
+                    hit = true
+                } 
+            
+                else{
+
+                }
             }
             
-        else if( fire == j.substring(4,6) ){
-            hit = true
-        }
-            
-        else if( fire == j.substring(0,2) ){
-            hit = true
-        }
-        
-        else if( fire == j.substring(2,4) ){
-            hit = true
-        }
-            
-        else if( fire == j.substring(4,6) ){
-            hit = true
-        } 
-        
-        else{
 
+
+            if (hit == true) {
+                document.getElementById(fire).style.backgroundColor = "red"
+                hits = hits + 1
+            }
+
+            else {
+                document.getElementById(fire).style.backgroundColor = "white"
+            }
+                
+        }
+
+        botfirecount = botfirecount + 1
+        botfirehistory[botfirecount] = fire
+
+    }
+
+    else if (tfHistory[1] == false && tfHistory[2] == false && tfHistory[3] == false && tfHistory[4] == true) 
+    {
+
+        check = false
+        hit = false
+            
+        var random = Math.floor((Math.random() * 5) + 0)
+            
+        if (random == 1) {
+            fire = botfirehistory[botfirecount] - 1
+        }
+        else if (random == 2) {
+            fire = botfirehistory[botfirecount] - - 1
+        }
+        else if (random == 3) {
+            fire = botfirehistory[botfirecount] - 10
+        }
+        else if (random == 4) {
+            fire = botfirehistory[botfirecount] - - 10
+    
+        }
+        
+        
+        if (openLoop > 16) {
+            fire =  Math.floor((Math.random() * 99) + 0)
+        }
+        
+        for (i=0;i<botfirecount+1;i++){
+            if (fire == botfirehistory[i]) {
+                check = true
+            }
+        }
+
+        if (check == true) {
+            openLoop = openLoop + 1
+        }
+
+
+        if (check == false) {
+
+            openLoop = 0
+
+            for (i=1; i<6; i++){
+
+                var j = boatNum[i]
+            
+            
+                if ( fire == j.substring(0,2) ){
+                    hit = true
+                }   
+            
+                else if( fire == j.substring(2,4) ){
+                    hit = true
+                }
+                                
+                else if( fire == j.substring(4,6) ){
+                    hit = true
+                }
+                
+                else if( fire == j.substring(0,2) ){
+                    hit = true
+                }
+                
+                else if( fire == j.substring(2,4) ){
+                    hit = true
+                }
+                
+                else if( fire == j.substring(4,6) ){
+                    hit = true
+                }
+                
+                else if( fire == j.substring(0,2) ){
+                    hit = true
+                }
+            
+                else if( fire == j.substring(2,4) ){
+                    hit = true
+                }
+                
+                else if( fire == j.substring(4,6) ){
+                    hit = true
+                } 
+            
+                else{
+                }
+            }
+
+            if (hit == true) {
+                document.getElementById(fire).style.backgroundColor = "red"
+                hits = hits + 1
+            }
+
+            else {
+                document.getElementById(fire).style.backgroundColor = "white"
+            }
+
+        botfirecount = botfirecount + 1
+        botfirehistory[botfirecount] = fire
+
+        }
+
+        else {
+            botGuess()
         }
     }
 
-    if (hit == true) {
-        document.getElementById(fire).style.backgroundColor = "red"
-        hits = hits + 1 
+    else if (tfHistory[1] == false && tfHistory[2] == false && tfHistory[3] == true && tfHistory[4] == false ) 
+    {
+        hit = false
+        check = false
+
+        var random = Math.floor((Math.random() * 5) + 0)
+            
+        if (random == 1) {
+            fire = botfirehistory[botfirecount-1] - 1
+        }
+        else if (random == 2) {
+            fire = botfirehistory[botfirecount-1] - - 1
+        }
+        else if (random == 3) {
+            fire = botfirehistory[botfirecount-1] - 10
+        }
+        else if (random == 4) {
+            fire = botfirehistory[botfirecount-1] - - 10
+        }
+        
+        if (openLoop > 16) {
+            fire =  Math.floor((Math.random() * 99) + 0)
+        }
+        
+        for (i=0;i<botfirecount+1;i++){
+            if (fire == botfirehistory[i]) {
+                check = true
+            }
+        }
+
+        if (check == true) {
+            openLoop = openLoop + 1
+        }
+
+        if (check == false) {
+
+            openLoop = 0
+
+            for (i=1; i<6; i++){
+
+                var j = boatNum[i]
+            
+            
+                if ( fire == j.substring(0,2) ){
+                    hit = true
+                }   
+            
+                else if( fire == j.substring(2,4) ){
+                    hit = true
+                }
+                                
+                else if( fire == j.substring(4,6) ){
+                    hit = true
+                }
+                
+                else if( fire == j.substring(0,2) ){
+                    hit = true
+                }
+                
+                else if( fire == j.substring(2,4) ){
+                    hit = true
+                }
+                
+                else if( fire == j.substring(4,6) ){
+                    hit = true
+                }
+                
+                else if( fire == j.substring(0,2) ){
+                    hit = true
+                }
+            
+                else if( fire == j.substring(2,4) ){
+                    hit = true
+                }
+                
+                else if( fire == j.substring(4,6) ){
+                    hit = true
+                } 
+            
+                else{
+                }
+            }
+
+
+            if (hit == true) {
+                document.getElementById(fire).style.backgroundColor = "red"
+                hits = hits + 1
+            }
+
+            else {
+                document.getElementById(fire).style.backgroundColor = "white"
+            }
+
+        botfirecount = botfirecount + 1
+        botfirehistory[botfirecount] = fire
+
+        }
+
+        else {
+            botGuess()
+        }
+    }
+
+    else if (tfHistory[1] == false && tfHistory[2] == true && tfHistory[3] == false && tfHistory[4] == false) 
+    {
+        
+        check = false 
+        hit = false
+
+        var random = Math.floor((Math.random() * 5) + 0)
+            
+        if (random == 1) {
+            fire = botfirehistory[botfirecount-2] - 1
+        }
+        else if (random == 2) {
+            fire = botfirehistory[botfirecount-2] - - 1
+        }
+        else if (random == 3) {
+            fire = botfirehistory[botfirecount-2] - 10
+        }
+        else if (random == 4) {
+            fire = botfirehistory[botfirecount-2] - - 10
+        }
+        
+        if (openLoop > 16) {
+            fire =  Math.floor((Math.random() * 99) + 0)
+        }
+        
+        for (i=0;i<botfirecount+1;i++){
+            if (fire == botfirehistory[i]) {
+                check = true
+            }
+        }
+
+        if (check == true) {
+            openLoop = openLoop + 1
+        }
+
+        if (check == false) {
+
+            openLoop = 0
+            if (check == false) {
+
+                for (i=1; i<6; i++){
+    
+                    var j = boatNum[i]
+                
+                
+                    if ( fire == j.substring(0,2) ){
+                        hit = true
+                    }   
+                
+                    else if( fire == j.substring(2,4) ){
+                        hit = true
+                    }
+                                    
+                    else if( fire == j.substring(4,6) ){
+                        hit = true
+                    }
+                    
+                    else if( fire == j.substring(0,2) ){
+                        hit = true
+                    }
+                    
+                    else if( fire == j.substring(2,4) ){
+                        hit = true
+                    }
+                    
+                    else if( fire == j.substring(4,6) ){
+                        hit = true
+                    }
+                    
+                    else if( fire == j.substring(0,2) ){
+                        hit = true
+                    }
+                
+                    else if( fire == j.substring(2,4) ){
+                        hit = true
+                    }
+                    
+                    else if( fire == j.substring(4,6) ){
+                        hit = true
+                    } 
+                
+                    else{
+                    }
+                }
+            }
+
+            if (hit == true) {
+                document.getElementById(fire).style.backgroundColor = "red"
+                hits = hits + 1
+            }
+
+            else {
+                document.getElementById(fire).style.backgroundColor = "white"
+            }
+
+        botfirecount = botfirecount + 1
+        botfirehistory[botfirecount] = fire
+
+        }
+
+        else {
+            botGuess()
+        }
+    }
+
+    else if (tfHistory[1] == true && tfHistory[2] == false && tfHistory[3] == false && tfHistory[4] == false) 
+    {  
+
+        hit = false
+        check = false
+            
+        var random = Math.floor((Math.random() * 5) + 0)
+            
+        if (random == 1) {
+            fire = botfirehistory[botfirecount-3] - 1
+        }
+        else if (random == 2) {
+            fire = botfirehistory[botfirecount-3] - - 1
+        }
+        else if (random == 3) {
+            fire = botfirehistory[botfirecount-3] - 10
+        }
+        else if (random == 4) {
+            fire = botfirehistory[botfirecount-3] - - 10
+        }
+        else {
+            fire =  Math.floor((Math.random() * 99) + 0)
+        }
+        
+        if (openLoop > 16) {
+            fire =  Math.floor((Math.random() * 99) + 0)
+        }
+        
+        for (i=0;i<botfirecount+1;i++){
+            if (fire == botfirehistory[i]) {
+                check = true
+            }
+        }
+
+        if (check == true) {
+            openLoop = openLoop + 1
+        }
+
+        if (check == false) {
+
+            openLoop = 0
+
+            if (check == false) {
+
+                for (i=1; i<6; i++){
+    
+                    var j = boatNum[i]
+                
+                
+                    if ( fire == j.substring(0,2) ){
+                        hit = true
+                    }   
+                
+                    else if( fire == j.substring(2,4) ){
+                        hit = true
+                    }
+                                    
+                    else if( fire == j.substring(4,6) ){
+                        hit = true
+                    }
+                    
+                    else if( fire == j.substring(0,2) ){
+                        hit = true
+                    }
+                    
+                    else if( fire == j.substring(2,4) ){
+                        hit = true
+                    }
+                    
+                    else if( fire == j.substring(4,6) ){
+                        hit = true
+                    }
+                    
+                    else if( fire == j.substring(0,2) ){
+                        hit = true
+                    }
+                
+                    else if( fire == j.substring(2,4) ){
+                        hit = true
+                    }
+                    
+                    else if( fire == j.substring(4,6) ){
+                        hit = true
+                    } 
+                
+                    else{
+                    }
+                }
+        }
+
+            if (hit == true) {
+                document.getElementById(fire).style.backgroundColor = "red"
+                hits = hits + 1
+            }
+
+            else {
+                document.getElementById(fire).style.backgroundColor = "white"
+            }
+
+        botfirecount = botfirecount + 1
+        botfirehistory[botfirecount] = fire
+
+        }
+
+        else {
+            botGuess()
+        }
+    }
+
+    else if (tfHistory[1] == true && tfHistory[2] == false && tfHistory[3] == false && tfHistory[4] == true) {
+            
+        check = false
+        hit = false
+            
+        if (botfirehistory[botfirecount-3] == botfirehistory[botfirecount] - - 10) {
+            fire = botfirehistory[botfirecount-3] - - 10
+        }
+        
+        else if (botfirehistory[botfirecount-3] == botfirehistory[botfirecount] - 10) {
+            fire = botfirehistory[botfirecount-3] - 10
+        }
+
+        else if (botfirehistory[botfirecount-3] == botfirehistory[botfirecount] - 1) {
+            fire = botfirehistory[botfirecount-3] - 1
+        }
+
+        else if (botfirehistory[botfirecount-3] == botfirehistory[botfirecount] - - 1) {
+            fire = botfirehistory[botfirecount-3] - -1
+        }
+
+        else {
+            fire = Math.floor((Math.random() * 99) + 0)
+        }
+
+
+        if (openLoop > 16) {
+            fire =  Math.floor((Math.random() * 99) + 0)
+        }
+        
+        for (i=0;i<botfirecount+1;i++){
+            if (fire == botfirehistory[i]) {
+                check = true
+            }
+        }
+
+        if (check == true) {
+            openLoop = openLoop + 1
+        }
+
+        if (fire < 0) {
+            for (i=1; i<5;i++) {
+                hfHistory[i] = false
+            }
+        }
+
+
+        if (check == false) {
+
+            openLoop = 0
+
+            for (i=1; i<6; i++){
+    
+                var j = boatNum[i]
+                
+                
+                if ( fire == j.substring(0,2) ){
+                    hit = true
+                }   
+                
+                else if( fire == j.substring(2,4) ){
+                    hit = true
+                }
+                                    
+                else if( fire == j.substring(4,6) ){
+                    hit = true
+                }
+                    
+                else if( fire == j.substring(0,2) ){
+                    hit = true
+                }
+                    
+                else if( fire == j.substring(2,4) ){
+                    hit = true
+                }
+                    
+                else if( fire == j.substring(4,6) ){
+                    hit = true
+                }
+                    
+                else if( fire == j.substring(0,2) ){
+                    hit = true
+                }
+                
+                else if( fire == j.substring(2,4) ){
+                    hit = true
+                }
+                    
+                else if( fire == j.substring(4,6) ){
+                    hit = true
+                } 
+                
+                else{
+                }
+            }
+            
+
+            if (hit == true) {
+                document.getElementById(fire).style.backgroundColor = "red"
+                hits = hits + 1                    
+            }
+
+            else {
+                document.getElementById(fire).style.backgroundColor = "white"
+            }
+            
+            botfirecount = botfirecount + 1
+            botfirehistory[botfirecount] = fire
+        }
+
+        else {
+            botGuess()
+        }
+    }
+
+    else if (tfHistory[1] == false && tfHistory[2] == true && tfHistory[3] == false && tfHistory[4] == true) {
+
+        check = false
+        hit = false 
+            
+        if (botfirehistory[botfirecount-2] == botfirehistory[botfirecount] - 10) {
+            fire = botfirehistory[botfirecount] - - 10
+        }
+        
+        else if (botfirehistory[botfirecount-2] == botfirehistory[botfirecount] - - 10) {
+            fire = botfirehistory[botfirecount] - 10
+        }
+
+        else if (botfirehistory[botfirecount-2] == botfirehistory[botfirecount] - 1) {
+            fire = botfirehistory[botfirecount] - - 1
+        }
+
+        else if (botfirehistory[botfirecount-2] == botfirehistory[botfirecount] - - 1) {
+            fire = botfirehistory[botfirecount] - 1
+        }
+
+        else {
+            fire = Math.floor((Math.random() * 99) + 0)
+        }
+        
+        if (openLoop > 16) {
+            fire =  Math.floor((Math.random() * 99) + 0)
+        }
+        
+        for (i=0;i<botfirecount+1;i++){
+            if (fire == botfirehistory[i]) {
+                check = true
+            }
+        }
+
+        if (check == true) {
+            openLoop = openLoop + 1
+        }
+
+        if (check == false) {
+
+            openLoop = 0
+            if (check == false) {
+
+                for (i=1; i<6; i++){
+    
+                    var j = boatNum[i]
+                
+                
+                    if ( fire == j.substring(0,2) ){
+                        hit = true
+                    }   
+                
+                    else if( fire == j.substring(2,4) ){
+                        hit = true
+                    }
+                                    
+                    else if( fire == j.substring(4,6) ){
+                        hit = true
+                    }
+                    
+                    else if( fire == j.substring(0,2) ){
+                        hit = true
+                    }
+                    
+                    else if( fire == j.substring(2,4) ){
+                        hit = true
+                    }
+                    
+                    else if( fire == j.substring(4,6) ){
+                        hit = true
+                    }
+                    
+                    else if( fire == j.substring(0,2) ){
+                        hit = true
+                    }
+                
+                    else if( fire == j.substring(2,4) ){
+                        hit = true
+                    }
+                    
+                    else if( fire == j.substring(4,6) ){
+                        hit = true
+                    } 
+                
+                    else{
+                    }
+                }
+            }
+
+            if (hit == true) {
+                document.getElementById(fire).style.backgroundColor = "red"
+                hits = hits + 1      
+            }
+
+            else {
+                document.getElementById(fire).style.backgroundColor = "white"
+            }
+
+            botfirecount = botfirecount + 1
+            botfirehistory[botfirecount] = fire
+
+        }
+
+        else {
+            botGuess()
+        }
+    }
+
+    else if (tfHistory[1] == false && tfHistory[2] == false && tfHistory[3] == true && tfHistory[4] == true) {
+
+        check = false
+        hit = false
+            
+        if (botfirehistory[botfirecount-1] == botfirehistory[botfirecount] - 10) {
+            fire = botfirehistory[botfirecount] - - 10
+        }
+        
+        else if (botfirehistory[botfirecount-1] == botfirehistory[botfirecount] - - 10) {
+            fire = botfirehistory[botfirecount] - 10
+        }
+
+        else if (botfirehistory[botfirecount-1] == botfirehistory[botfirecount] - 1) {
+            fire = botfirehistory[botfirecount] - - 1
+        }
+
+        else if (botfirehistory[botfirecount-1] == botfirehistory[botfirecount] - - 1) {
+            fire = botfirehistory[botfirecount] - 1
+        }
+
+        else {
+            fire = Math.floor((Math.random() * 99) + 0)
+        }
+
+        if (openLoop > 16) {
+            fire =  Math.floor((Math.random() * 99) + 0)
+        }
+
+        for (i=0;i<botfirecount+1;i++){
+            if (fire == botfirehistory[i]) {
+                check = true
+            }
+        }
+
+        if (check == true) {
+            openLoop = openLoop + 1
+        }
+
+        if (check == false) {
+
+            openLoop = 0
+
+            for (i=1; i<6; i++){
+    
+                var j = boatNum[i]
+                
+                
+                if ( fire == j.substring(0,2) ){
+                    hit = true
+                }   
+                
+                else if( fire == j.substring(2,4) ){
+                    hit = true
+                }
+                                    
+                else if( fire == j.substring(4,6) ){
+                    hit = true
+                }
+                    
+                else if( fire == j.substring(0,2) ){
+                    hit = true
+                }
+                    
+                else if( fire == j.substring(2,4) ){
+                    hit = true
+                }
+                    
+                else if( fire == j.substring(4,6) ){
+                    hit = true
+                }
+                    
+                else if( fire == j.substring(0,2) ){
+                    hit = true
+                }
+                
+                else if( fire == j.substring(2,4) ){
+                    hit = true
+                }
+                    
+                else if( fire == j.substring(4,6) ){
+                    hit = true
+                } 
+                
+                else{
+                }
+            }
+            
+
+            if (hit == true) {
+                document.getElementById(fire).style.backgroundColor = "red"
+                hits = hits + 1 
+            }
+
+            else {
+                document.getElementById(fire).style.backgroundColor = "white"
+            }
+
+            botfirecount = botfirecount + 1
+            botfirehistory[botfirecount] = fire
+        }
+    
+        else {
+        botGuess()
+        }
+    
+    }
+
+     else if (tfHistory[1] == false && tfHistory[2] == true && tfHistory[3] == true && tfHistory[4] == false) {
+        
+        check = false
+        hit = false
+            
+        if (botfirehistory[botfirecount-2] == botfirehistory[botfirecount-1] - 10) {
+            fire = botfirehistory[botfirecount-2] - 10
+        }
+        
+        else if (botfirehistory[botfirecount-2] == botfirehistory[botfirecount-1] - - 10) {
+            fire = botfirehistory[botfirecount-2] - - 10
+        }
+
+        else if (botfirehistory[botfirecount-2] == botfirehistory[botfirecount-1] - 1) {
+            fire = botfirehistory[botfirecount-2] - 1
+        }
+
+        else if (botfirehistory[botfirecount-2] == botfirehistory[botfirecount-1] - - 1) {
+            fire = botfirehistory[botfirecount-2] - - 1
+        }
+
+        if (openLoop > 16) {
+            fire =  Math.floor((Math.random() * 99) + 0)
+        }
+        
+        for (i=0;i<botfirecount+1;i++){
+            if (fire == botfirehistory[i]) {
+                check = true
+            }
+        }
+        
+        if (check == true) {
+            openLoop = openLoop + 1
+        }
+
+        if (check == false) {
+
+            if (check == false) {
+
+             openLoop = 0
+
+                for (i=1; i<6; i++){
+    
+                    var j = boatNum[i]
+                
+                
+                    if ( fire == j.substring(0,2) ){
+                        hit = true
+                    }   
+                
+                    else if( fire == j.substring(2,4) ){
+                        hit = true
+                    }
+                                    
+                    else if( fire == j.substring(4,6) ){
+                        hit = true
+                    }
+                    
+                    else if( fire == j.substring(0,2) ){
+                        hit = true
+                    }
+                    
+                    else if( fire == j.substring(2,4) ){
+                        hit = true
+                    }
+                    
+                    else if( fire == j.substring(4,6) ){
+                        hit = true
+                    }
+                    
+                    else if( fire == j.substring(0,2) ){
+                        hit = true
+                    }
+                
+                    else if( fire == j.substring(2,4) ){
+                        hit = true
+                    }
+                    
+                    else if( fire == j.substring(4,6) ){
+                        hit = true
+                    } 
+                
+                    else{
+                    }
+                }
+            }
+
+            if (hit == true) {
+                document.getElementById(fire).style.backgroundColor = "red"
+                hits = hits + 1    
+            }
+
+            else {
+                document.getElementById(fire).style.backgroundColor = "white"
+            }
+
+            botfirecount = botfirecount + 1
+            botfirehistory[botfirecount] = fire
+
+        }
+
+        else {
+            botGuess()
+        }
     }
 
     else {
-        document.getElementById(fire).style.backgroundColor = "white"
-    }
-            
-    botfirecount = botfirecount + 1
-    botfirehistory[botfirecount] = fire
+
     }
 
-    else {
-        randomGuess()
-    }
-
-    document.getElementById("playerDiv").style.display = "block";
-    document.getElementById("guessDiv").style.display = "none";
+    
 }
