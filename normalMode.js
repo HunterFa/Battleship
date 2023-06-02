@@ -205,32 +205,11 @@ function submit() {
                 bshipParameters();
             }
 
-            if (botRotation == 1 && (botBoatPos.substring(0, 1)!== "0") && (botBoatPos.substring(0, 1)!=="9") && bInvalid == false ){ //vertical object 
-                document.getElementById(botPosTop + "a").style.backgroundColor = "brown"
-                document.getElementById(botBoatPos + "a").style.backgroundColor = "brown"
-                document.getElementById(botPosBottom + "a").style.backgroundColor = "brown"
-                alert (bbNum[botCount])
 
-                
-        
-            } else 
-        
-            if (botRotation == 2 && (botBoatPos.substring(1, 2)!=="9" && (botBoatPos.substring(1, 2)!=="0")) && botBoatPos!=="9" && botBoatPos!=="0" && bInvalid == false){ // horizontal object
-                document.getElementById(botPosLeft + "a").style.backgroundColor = "brown"
-                document.getElementById(botBoatPos + "a").style.backgroundColor = "brown"
-                document.getElementById(botPosRight + "a").style.backgroundColor = "brown"
-                alert (bbNum[botCount])
-
-        
-        
-        
-            } 
             else {         
-                alert("invalid")
                 bbNum[botCount] = 0   
                 bbNum2[botCount] = "0"
                 botCount = botCount - 1
-            
             }
             function bshipParameters(){
                 for (i=1;i<botCount+1;i++) {
@@ -376,8 +355,9 @@ function cellClicked2(tablecell2) {
         playerTurn = false
 
     }
-    else if (hitcellnum == 14){
+    else if (hitcellnum == 15){
         alert("You Win")
+        document.getElementById(fire).style.backgroundColor = "red"
     }
  
 
@@ -388,7 +368,7 @@ function botGuess () {
     document.getElementById("playerDiv").style.display = "block";
     document.getElementById("guessDiv").style.display = "none";
 
-
+    playerTurn = true
     var check = false
     var hit = false
     var botsunk = false
