@@ -1,3 +1,4 @@
+
 var boatRotation = 1 //Type 1 = vertical Type 2 = horizontal 
 var boatPos; //Boat Position of players boats
 var boatCount = 0 //The number of boats the player has placed
@@ -25,7 +26,62 @@ var botSC1 = 0 //The amount of boats the boat has sunk
 var botSC2 = 0 //Version of botSC1 without certain boats placed to check if boats are inside eachother
 var openLoop = 0 //Failsafe
 
+
+
+const miscBotSpeech =[ // miscelanous dialogue for the bot to say throughout the game
+"I am going to destroy you.", 
+"This game is all i have left.",
+"I had to take out a mortgage for these boats please dont sink them >:(.",
+"Can we get this over with? I need to get to BodyFit Marrickville to hit arms.", 
+"Nice weather we are having.",
+
+] 
+
+const hitBotSpeech = [ // dialogue for bot to say when his boat gets hit
+"RAHHHHHHHHHHHHHHHHH1!!!!!!!!!!1!!", 
+"You're making me REALLY angry buster.",
+"MY FAMILY WAS ON THAT BOAT!",
+"STOP WINNING!",
+"I'M NOT MAD YOU ARE!",
+"GOSH DIDDLY DANG DARNIT!",
+"RATS!",
+"Why has god abandoned us?",
+"YOU'RE ON THIN ICE BUCKO!"
+]
+
+const sunkBotSpeech = [ // dialogue for bot when his boat gets sunk
+"You sunk my battleship!",
+]
+
+const winningBotSpeech = [
+"Yipeeeeee!!!!!",
+"You are so predictable",
+"I am literally him",
+"I clicked a random square and it worked!!!"
+
+]
+
+const playerMissSpeech = [
+"Hahhaahhahhaha you suck",
+"W",
+"That was a close one! Just kidding hahahaha"
+
+]
+
+
+
+const botEmotion = [
+ "sad.jpg",
+ "happy.jpg",
+ "angry.jpg",
+ "evil.jpg"
+    
+]
+
 document.getElementById("guessDiv").style.display = "none"
+document.getElementById("botSpeech").innerHTML = miscBotSpeech[Math.floor((Math.random() * miscBotSpeech.length) + 0)]
+document.getElementById("botImage").src = botEmotion[Math.floor((Math.random() * botEmotion.length) + 0)]
+
 
 document.addEventListener("keydown", function (e){
     if (e.xkeyCode === 82) {
@@ -346,6 +402,7 @@ function cellClicked2(tablecell2) { // Called when a player clicks on a cell to 
             document.getElementById(fire).style.backgroundColor = "red"
             hitcellnum =  hitcellnum + 1
             firedatabase[hitcellnum] = fire
+            
         }
 
         else {
