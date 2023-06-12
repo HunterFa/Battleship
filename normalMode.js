@@ -84,7 +84,7 @@ document.getElementById("botImage").src = botEmotion[Math.floor((Math.random() *
 
 
 document.addEventListener("keydown", function (e){
-    if (e.xkeyCode === 82) {
+    if (e.keyCode === 82) {
 
         rotateShip();
         
