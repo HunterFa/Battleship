@@ -1,34 +1,34 @@
 var boatRotation = 1 //Type 1 = vertical Type 2 = horizontal 
-var boatPos;
-var boatCount = 0
-var boatNum = []
-var boatNum2 = ["0","0","0","0","0"]
-var botCount = 0;
-var bbNum = [];
-var bbNum2 = ["0","0","0","0","0","0"]
-var submitt = false
-var hitcellnum = 0
-var firedatabase = []
-var allshots = []
-var allshotsCount = 0
-var playerTurn = true
-var botfirehistory = []
-var botfirecount = 0
-var botLastShot = []
-var botHitCount = 0
-var hits = 0
-var hitcheck1 = 0
-var hitcheck2 = 0
-var peter = 0
-var tfHistory = []
-var botSC1 = 0
-var botSC2 = 0
-var openLoop = 0
+var boatPos; //Boat Position of players boats
+var boatCount = 0 //The number of boats the player has placed
+var boatNum = [] //Sequence of numbers that correspond to specific cell ids in the table
+var boatNum2 = ["0","0","0","0","0"] //Version of boatNum without certain boats placed to check if boats are inside eachother
+var botCount = 0; //The amount of boats the bot has placed
+var bbNum = []; //Sequence of numbers that correspond to specific cell ids in the table
+var bbNum2 = ["0","0","0","0","0","0"] //Version of boatNum without certain boats placed to check if boats are inside eachother
+var submitt = false //
+var hitcellnum = 0 //The amount of cells that have been hit
+var firedatabase = [] //Player shot storage
+var allshots = [] //Every shot and id of that cell that has been taken
+var allshotsCount = 0 //All shots that have been taken (hits and misses)
+var playerTurn = true //Determines if its the player or bot's turn
+var botfirehistory = [] //The history 
+var botfirecount = 0 //The amount of shots that the bot has taken
+var botLastShot = [] //The last shot that the bot has taken
+var botHitCount = 0 // 
+var hits = 0 //The amount of cells that have been hit
+var hitcheck1 = 0 //
+var hitcheck2 = 0 //
+var peter = 0 //peter variable
+var tfHistory = [] // converts botfirehistroy into true or false statments hit=true miss=false
+var botSC1 = 0 //The amount of boats the boat has sunk
+var botSC2 = 0 //Version of botSC1 without certain boats placed to check if boats are inside eachother
+var openLoop = 0 //Failsafe
 
 document.getElementById("guessDiv").style.display = "none"
 
 document.addEventListener("keydown", function (e){
-    if (e.keyCode === 82) {
+    if (e.xkeyCode === 82) {
 
         rotateShip();
         
@@ -56,7 +56,9 @@ function cellClicked(tablecell){
     var boatPosRight = boatPos - - 1
     var invalid = false
     
-    if (boatCount<5) {
+
+
+    if (boatCount<5) {  // Vertical placement
         boatCount = boatCount + 1
 
         if (boatPosTop<10) {
@@ -94,7 +96,7 @@ function cellClicked(tablecell){
 
 
 
-    } else 
+    } else  // Horizontal placement
 
         if (boatRotation == 2 && (boatPos.substring(1, 2)!=="9" && (boatPos.substring(1, 2)!=="0")) && boatPos!=="9" && boatPos!=="0" && invalid == false){ // horizontal object
         //alert(tablecell.id)
@@ -113,7 +115,7 @@ function cellClicked(tablecell){
 
         }
 
-        function shipParameters(){
+        function shipParameters(){ // Areas that the ship can't be placed in
             for (i=1;i<boatCount;i++) {
                 var q = boatNum[boatCount]
                 var x = boatNum2[i]
@@ -162,7 +164,7 @@ function cellClicked(tablecell){
     }
 }
 
-function submit() {
+function submit() { //Changes the div, does bot boat placement
     if (boatCount == 5 && submitt == false) {
         document.getElementById("playerDiv").style.display = "none"
         document.getElementById("guessDiv").style.display = "block"
@@ -274,7 +276,7 @@ function submit() {
     }
 }
 
-function cellClicked2(tablecell2) {
+function cellClicked2(tablecell2) { // Called when a player clicks on a cell to attack
     var fire = tablecell2.id
     var alreadyClicked = false
 
@@ -361,9 +363,9 @@ function cellClicked2(tablecell2) {
     }
  
 
-}  // peter is cool
+}  // peter is cool !!!!!!!!
 
-function botGuess () {
+function botGuess () { //The bot guesses where the players boats are. The majority of the code is in this function for the game.
 
     document.getElementById("playerDiv").style.display = "block";
     document.getElementById("guessDiv").style.display = "none";
@@ -406,7 +408,7 @@ function botGuess () {
 
 
 
-    for (i=1; i<5; i++) {
+    for (i=1; i<5; i++) { // Checks the last 4 shots and labels them as T/F (Hit / Miss)
         tfHistory[i] = false
     }
 
@@ -441,14 +443,14 @@ function botGuess () {
         m = m + 1
     }
 
-    if (botSC1 ==! botSC2) {
+    if (botSC1 ==! botSC2) { //(Bot Sunk Count) Detects if the bot sunk a boat
         botsunk = true
     }
 
     botSC2 = botSC1
 
     
-    if (tfHistory[1] == false && tfHistory[2] == false && tfHistory[3] == false && tfHistory[4] == false 
+    if (tfHistory[1] == false && tfHistory[2] == false && tfHistory[3] == false && tfHistory[4] == false //Checks for every scenario of the bot guessing
        || tfHistory[1] == true && tfHistory[2] == true && tfHistory[3] == true && tfHistory[4] == false
        || tfHistory[1] == true && tfHistory[2] == false && tfHistory[3] == true && tfHistory[4] == true
        || tfHistory[1] == false && tfHistory[2] == true && tfHistory[3] == true && tfHistory[4] == true
@@ -466,7 +468,7 @@ function botGuess () {
         var hit = false
 
             
-        for (i=0;i<botfirecount+1;i++){
+        for (i=0;i<botfirecount+1;i++){ //Checks if this shot has already been done
             if (fire == botfirehistory[i]) {
                 check = true
             }
@@ -478,7 +480,7 @@ function botGuess () {
         }
 
 
-        if (check == false) {
+        if (check == false) { //Determines if bot shot is a hit or a miss
                 
             for (i=1; i<6; i++){
 
@@ -544,7 +546,7 @@ function botGuess () {
 
     }
 
-    else if (tfHistory[1] == false && tfHistory[2] == false && tfHistory[3] == false && tfHistory[4] == true) 
+    else if (tfHistory[1] == false && tfHistory[2] == false && tfHistory[3] == false && tfHistory[4] == true) //Checks the scenario
     {
 
         check = false
@@ -552,7 +554,7 @@ function botGuess () {
             
         var random = Math.floor((Math.random() * 5) + 0)
             
-        if (random == 1) {
+        if (random == 1) { // Makes bot decisions random after it has hit
             fire = botfirehistory[botfirecount] - 1
         }
         else if (random == 2) {
@@ -567,11 +569,11 @@ function botGuess () {
         }
         
         
-        if (openLoop > 16) {
+        if (openLoop > 16) { // Failsafe, makes the bot do a random guess if something goes wrong
             fire =  Math.floor((Math.random() * 99) + 0)
         }
         
-        for (i=0;i<botfirecount+1;i++){
+        for (i=0;i<botfirecount+1;i++){// Checks bot fire history
             if (fire == botfirehistory[i]) {
                 check = true
             }
@@ -586,7 +588,7 @@ function botGuess () {
 
             openLoop = 0
 
-            for (i=1; i<6; i++){
+            for (i=1; i<6; i++){// Checks if the bot shot is a hit or miss
 
                 var j = boatNum[i]
             
@@ -680,7 +682,7 @@ function botGuess () {
             }
         }
 
-        if (check == true) {
+        if (check == true) { // If check is true, this shot has already been taken
             openLoop = openLoop + 1
         }
 
@@ -734,7 +736,7 @@ function botGuess () {
             }
 
 
-            if (hit == true) {
+            if (hit == true) { //If hit, cell becomes red. If miss, cell is white.
                 document.getElementById(fire).style.backgroundColor = "red"
                 hits = hits + 1
             }
@@ -749,7 +751,7 @@ function botGuess () {
         }
 
         else {
-            botGuess()
+            botGuess() // Recalls the function if shot has already been taken.
         }
     }
 
@@ -759,7 +761,7 @@ function botGuess () {
         check = false 
         hit = false
 
-        var random = Math.floor((Math.random() * 5) + 0)
+        var random = Math.floor((Math.random() * 5) + 0) //Makes bot guess random
             
         if (random == 1) {
             fire = botfirehistory[botfirecount-2] - 1
