@@ -629,6 +629,10 @@ function botGuess () { //The bot guesses where the players boats are. The majori
         if (openLoop > 16) { // Failsafe, makes the bot do a random guess if something goes wrong
             fire =  Math.floor((Math.random() * 99) + 0)
         }
+
+        if (fire<10) {
+            fire = "0" +fire
+        }
         
         for (i=0;i<botfirecount+1;i++){// Checks bot fire history
             if (fire == botfirehistory[i]) {
@@ -731,6 +735,10 @@ function botGuess () { //The bot guesses where the players boats are. The majori
         
         if (openLoop > 16) {
             fire =  Math.floor((Math.random() * 99) + 0)
+        }
+
+        if (fire<10) {
+            fire = "0" +fire
         }
         
         for (i=0;i<botfirecount+1;i++){
@@ -837,6 +845,10 @@ function botGuess () { //The bot guesses where the players boats are. The majori
             fire =  Math.floor((Math.random() * 99) + 0)
         }
         
+        if (fire<10) {
+            fire = "0" +fire
+        }
+
         for (i=0;i<botfirecount+1;i++){
             if (fire == botfirehistory[i]) {
                 check = true
@@ -943,6 +955,10 @@ function botGuess () { //The bot guesses where the players boats are. The majori
         
         if (openLoop > 16) {
             fire =  Math.floor((Math.random() * 99) + 0)
+        }
+
+        if (fire<10) {
+            fire = "0" +fire
         }
         
         for (i=0;i<botfirecount+1;i++){
@@ -1056,6 +1072,11 @@ function botGuess () { //The bot guesses where the players boats are. The majori
             fire =  Math.floor((Math.random() * 99) + 0)
         }
         
+
+        if (fire<10) {
+            fire = "0" +fire
+        }
+
         for (i=0;i<botfirecount+1;i++){
             if (fire == botfirehistory[i]) {
                 check = true
@@ -1170,6 +1191,11 @@ function botGuess () { //The bot guesses where the players boats are. The majori
             fire =  Math.floor((Math.random() * 99) + 0)
         }
         
+        if (fire<10) {
+            fire = "0" +fire
+        }
+
+
         for (i=0;i<botfirecount+1;i++){
             if (fire == botfirehistory[i]) {
                 check = true
@@ -1279,6 +1305,10 @@ function botGuess () { //The bot guesses where the players boats are. The majori
             fire =  Math.floor((Math.random() * 99) + 0)
         }
 
+        if (fire<10) {
+            fire = "0" +fire
+        }
+
         for (i=0;i<botfirecount+1;i++){
             if (fire == botfirehistory[i]) {
                 check = true
@@ -1383,6 +1413,10 @@ function botGuess () { //The bot guesses where the players boats are. The majori
             fire =  Math.floor((Math.random() * 99) + 0)
         }
         
+        if (fire<10) {
+            fire = "0" +fire
+        }
+
         for (i=0;i<botfirecount+1;i++){
             if (fire == botfirehistory[i]) {
                 check = true
@@ -1446,7 +1480,11 @@ function botGuess () { //The bot guesses where the players boats are. The majori
             }
 
             if (hit == true) {
-                document.getElementById(fire).style.backgroundColor = "red"
+                try {
+                    document.getElementById(fire).style.backgroundColor = "red"
+                } catch {
+                    console.log(fire)
+                }
                 hits = hits + 1    
             }
 
