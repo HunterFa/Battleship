@@ -25,7 +25,7 @@ var tfHistory = [] // converts botfirehistroy into true or false statments hit=t
 var botSC1 = 0 //The amount of boats the boat has sunk
 var botSC2 = 0 //Version of botSC1 without certain boats placed to check if boats are inside eachother
 var openLoop = 0 //Failsafe
-
+mousecellid = 0
 
 
 
@@ -36,7 +36,6 @@ var openLoop = 0 //Failsafe
   |_||___|  |____/|___|  |_|
   
   -Make continue button disappear when it shouldnt be pressed
-  -Fix the hover preview
   -Make boats real boats
   -Make a win / Lose scene
   -Make "extreme mode" (maybe)
@@ -157,7 +156,6 @@ document.getElementById("boatSubmit").style.display = "none"
 document.addEventListener("keydown", function (e){
     if (e.keyCode === 82) {
         
-
         rotateShip();
         
     }
@@ -167,74 +165,139 @@ document.addEventListener("keydown", function (e){
 
 function cellHover(tablecell){
     if(submitt == false){
+
+        mousecellid = tablecell.id
     
-    if(boatRotation == 1 && document.getElementById(tablecell.id -10).style.backgroundColor !== "grey" && document.getElementById(tablecell.id).style.backgroundColor !== "grey" && document.getElementById(tablecell.id - - 10).style.backgroundColor !== "grey"){
-        if((tablecell.id.substring(0, 1)) !=="9" && (tablecell.id.substring(0, 1)) !=="0"){
+        var q = tablecell.id - 10
+        var a = tablecell.id - 1
+        var b = tablecell.id
+        var c = tablecell.id - - 1
         
-        document.getElementById(tablecell.id).style.backgroundColor = "green"
-        document.getElementById(tablecell.id - 10).style.backgroundColor = "green"
-        document.getElementById(tablecell.id - -10).style.backgroundColor = "green"
-        
+        if(q < 10) {
+            q = "0" + q
+        }
+        if(a < 10) {
+            a = "0" + a
+        }
+        if(c < 10) {
+            c = "0" + c
         }
 
-    } else if(boatRotation == 2 && document.getElementById(tablecell.id - 1).style.backgroundColor !== "grey" && document.getElementById(tablecell.id).style.backgroundColor !== "grey" && document.getElementById(tablecell.id - - 1).style.backgroundColor !== "grey" && document.getElementById(tablecell.id - - 10).style.backgroundColor !== "grey"){
-        if((tablecell.id.substring(1, 2)) !=="0" && (tablecell.id.substring(1, 2)) !=="9"){
+        if(boatRotation == 1 && document.getElementById(q).style.backgroundColor !== "grey" && document.getElementById(tablecell.id).style.backgroundColor !== "grey" && document.getElementById(tablecell.id - - 10).style.backgroundColor !== "grey"){
+            if((tablecell.id.substring(0, 1)) !=="9" && (tablecell.id.substring(0, 1)) !=="0"){
 
-        document.getElementById(tablecell.id).style.backgroundColor = "green"
-        document.getElementById(tablecell.id - 1).style.backgroundColor = "green"
-        document.getElementById(tablecell.id - - 1).style.backgroundColor = "green"
-        }
-      
+                document.getElementById(tablecell.id).style.backgroundColor = "green"
+                document.getElementById(q).style.backgroundColor = "green"
+                document.getElementById(tablecell.id - -10).style.backgroundColor = "green"
+            }
+
+        } else if(boatRotation == 2 && document.getElementById(a).style.backgroundColor !== "grey" && document.getElementById(b).style.backgroundColor !== "grey" && document.getElementById(c).style.backgroundColor !== "grey"){
+            if((tablecell.id.substring(1, 2)) !=="0" && (tablecell.id.substring(1, 2)) !=="9"){
+
+            document.getElementById(a).style.backgroundColor = "green"
+            document.getElementById(b).style.backgroundColor = "green"
+            document.getElementById(c).style.backgroundColor = "green"
+            }
         
-    }  
+            
+        }  
    
     }   
 }
 
 function cellReset(tablecell){
+    
+    var q = tablecell.id - 10
+    var a = tablecell.id - 1
+    var b = tablecell.id
+    var c = tablecell.id - - 1
+    
+    if(q < 10) {
+        q = "0" + q
+    }
+    if(a < 10) {
+        a = "0" + a
+    }
+    if(c < 10) {
+        c = "0" + c
+    }
 
     if (boatRotation == 1){
-        if (document.getElementById(tablecell.id - 10).style.backgroundColor == "green"){
-       
+        if (document.getElementById(q).style.backgroundColor == "green"){
+
             document.getElementById(tablecell.id).style.backgroundColor = "cornflowerblue"
-            document.getElementById(tablecell.id - 10).style.backgroundColor = "cornflowerblue"
+            document.getElementById(q).style.backgroundColor = "cornflowerblue"
             document.getElementById(tablecell.id - -10).style.backgroundColor = "cornflowerblue"
        
-    }
+        }
     } else if (boatRotation == 2){
-        if(document.getElementById(tablecell.id - 1).style.backgroundColor == "green")
+        if(document.getElementById(b).style.backgroundColor == "green") {
 
-            document.getElementById(tablecell.id).style.backgroundColor = "cornflowerblue"
-            document.getElementById(tablecell.id - 1).style.backgroundColor = "cornflowerblue"
-            document.getElementById(tablecell.id - -1).style.backgroundColor = "cornflowerblue"
-        
+            document.getElementById(a).style.backgroundColor = "cornflowerblue"
+            document.getElementById(b).style.backgroundColor = "cornflowerblue"
+            document.getElementById(c).style.backgroundColor = "cornflowerblue"
+        }
     }
-
    
-
 }
 
+
+
 function rotateShip(){
-    
+
+    for (i=0; i<100; i++) {
+        
+        if (i<10) {
+            i= "0" + i
+        }
+        
+        if (document.getElementById(i).style.backgroundColor == "green"  )
+        document.getElementById(i).style.backgroundColor = "cornflowerblue"
+    }
+
+        
+
+        var q = mousecellid - 10
+        var s = mousecellid - - 10
+        var a = mousecellid - 1
+        var b = mousecellid
+        var c = mousecellid - - 1
+        
+        if(q < 10) {
+            q = "0" + q
+        }
+        if(a < 10) {
+            a = "0" + a
+        }
+        if(c < 10) {
+            c = "0" + c
+        }
+
     if (boatRotation !== 1 ){
         boatRotation = 1
-        document.getElementById(tablecell.id).style.backgroundColor = "cornflowerblue"
-            document.getElementById(tablecell.id - 1).style.backgroundColor = "cornflowerblue"
-            document.getElementById(tablecell.id - -1).style.backgroundColor = "cornflowerblue"
+        if (document.getElementById(q).style.backgroundColor == "cornflowerblue" && document.getElementById(s).style.backgroundColor == "cornflowerblue" 
+        && document.getElementById(b).style.backgroundColor == "cornflowerblue" ) {
+        document.getElementById(q).style.backgroundColor = "green"
+        document.getElementById(b).style.backgroundColor = "green"
+        document.getElementById(s).style.backgroundColor = "green"
+        }
 
-        //cellReset()
-        
-        
-    } else{
-        boatRotation = 2
-        document.getElementById(tablecell.id).style.backgroundColor = "cornflowerblue"
-        document.getElementById(tablecell.id - 10).style.backgroundColor = "cornflowerblue"
-        document.getElementById(tablecell.id - -10).style.backgroundColor = "cornflowerblue"
-      
-        //cellReset()
-        
     }
-    //alert(boatRotation)
+    else {
+        boatRotation = 2
+        if (document.getElementById(a).style.backgroundColor == "cornflowerblue" && document.getElementById(c).style.backgroundColor == "cornflowerblue" 
+        && document.getElementById(b).style.backgroundColor == "cornflowerblue" ) {
+        document.getElementById(a).style.backgroundColor = "green"
+        document.getElementById(b).style.backgroundColor = "green"
+        document.getElementById(c).style.backgroundColor = "green"
+        }
+    }
+
+
+
+        
+        
+    
 }
 
 
