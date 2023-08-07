@@ -149,12 +149,12 @@ document.getElementById("guessDiv").style.display = "none"
 document.getElementById("botSpeech").innerHTML = miscBotSpeech[Math.floor((Math.random() * miscBotSpeech.length) + 0)]
 document.getElementById("botImage").src = "evil.jpg"
 document.getElementById("loadingGif").style.display = "none"
-document.getElementById("boatSubmit").style.display = "none"
 
 
 
-document.addEventListener("keydown", function (e){
-    if (e.keyCode === 82) {
+
+document.addEventListener("keydown", function (key){
+    if (key.keyCode === 82) {
         
         rotateShip();
         
@@ -165,6 +165,7 @@ document.addEventListener("keydown", function (e){
 
 function cellHover(tablecell){
     if(submitt == false){
+
 
         mousecellid = tablecell.id
     
@@ -222,13 +223,18 @@ function cellReset(tablecell){
         c = "0" + c
     }
 
+    
+
     if (boatRotation == 1){
+
         if (document.getElementById(q).style.backgroundColor == "green"){
+
 
             document.getElementById(tablecell.id).style.backgroundColor = "cornflowerblue"
             document.getElementById(q).style.backgroundColor = "cornflowerblue"
             document.getElementById(tablecell.id - -10).style.backgroundColor = "cornflowerblue"
        
+
         }
     } else if (boatRotation == 2){
         if(document.getElementById(b).style.backgroundColor == "green") {
@@ -240,7 +246,6 @@ function cellReset(tablecell){
     }
    
 }
-
 
 
 function rotateShip(){
@@ -321,7 +326,7 @@ function cellClicked(tablecell){
 
         if (boatCount == 5){
 
-            document.getElementById("boatSubmit").style.display = "block"
+            
             }
 
         if (boatPosTop<10) {
