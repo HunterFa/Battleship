@@ -36,7 +36,7 @@ var openLoop = 0 //Failsafe
   |_||___|  |____/|___|  |_|
   
   -Make continue button disappear when it shouldnt be pressed
-  -Fix the hover preview
+
   -Make boats real boats
   -Make a win / Lose scene
   -Make "extreme mode" (maybe)
@@ -150,12 +150,12 @@ document.getElementById("guessDiv").style.display = "none"
 document.getElementById("botSpeech").innerHTML = miscBotSpeech[Math.floor((Math.random() * miscBotSpeech.length) + 0)]
 document.getElementById("botImage").src = "evil.jpg"
 document.getElementById("loadingGif").style.display = "none"
-document.getElementById("boatSubmit").style.display = "none"
 
 
 
-document.addEventListener("keydown", function (e){
-    if (e.keyCode === 82) {
+
+document.addEventListener("keydown", function (key){
+    if (key.keyCode === 82) {
         
 
         rotateShip();
@@ -167,6 +167,8 @@ document.addEventListener("keydown", function (e){
 
 function cellHover(tablecell){
     if(submitt == false){
+
+        
     
     if(boatRotation == 1 && document.getElementById(tablecell.id -10).style.backgroundColor !== "grey" && document.getElementById(tablecell.id).style.backgroundColor !== "grey" && document.getElementById(tablecell.id - - 10).style.backgroundColor !== "grey"){
         if((tablecell.id.substring(0, 1)) !=="9" && (tablecell.id.substring(0, 1)) !=="0"){
@@ -193,16 +195,18 @@ function cellHover(tablecell){
 
 function cellReset(tablecell){
 
+    
+
     if (boatRotation == 1){
-        if (document.getElementById(tablecell.id - 10).style.backgroundColor == "green"){
+        
        
             document.getElementById(tablecell.id).style.backgroundColor = "cornflowerblue"
             document.getElementById(tablecell.id - 10).style.backgroundColor = "cornflowerblue"
             document.getElementById(tablecell.id - -10).style.backgroundColor = "cornflowerblue"
        
-    }
+    
     } else if (boatRotation == 2){
-        if(document.getElementById(tablecell.id - 1).style.backgroundColor == "green")
+        
 
             document.getElementById(tablecell.id).style.backgroundColor = "cornflowerblue"
             document.getElementById(tablecell.id - 1).style.backgroundColor = "cornflowerblue"
@@ -214,24 +218,26 @@ function cellReset(tablecell){
 
 }
 
-function rotateShip(){
+function rotateShip(tablecell){
     
     if (boatRotation !== 1 ){
         boatRotation = 1
         document.getElementById(tablecell.id).style.backgroundColor = "cornflowerblue"
-            document.getElementById(tablecell.id - 1).style.backgroundColor = "cornflowerblue"
-            document.getElementById(tablecell.id - -1).style.backgroundColor = "cornflowerblue"
+            document.getElementById(tablecell.id - 10).style.backgroundColor = "cornflowerblue"
+            document.getElementById(tablecell.id - -10).style.backgroundColor = "cornflowerblue"
+        
 
-        //cellReset()
+        cellReset()
         
         
     } else{
         boatRotation = 2
         document.getElementById(tablecell.id).style.backgroundColor = "cornflowerblue"
-        document.getElementById(tablecell.id - 10).style.backgroundColor = "cornflowerblue"
-        document.getElementById(tablecell.id - -10).style.backgroundColor = "cornflowerblue"
+        document.getElementById(tablecell.id - 1).style.backgroundColor = "cornflowerblue"
+        document.getElementById(tablecell.id - -1).style.backgroundColor = "cornflowerblue"
+       
       
-        //cellReset()
+        cellReset()
         
     }
     //alert(boatRotation)
@@ -258,7 +264,7 @@ function cellClicked(tablecell){
 
         if (boatCount == 5){
 
-            document.getElementById("boatSubmit").style.display = "block"
+            
             }
 
         if (boatPosTop<10) {

@@ -46,38 +46,13 @@ td{
 
 
 
-
-#botImage{
-    display: block;
-    margin-left: auto;
-    position: absolute;
-    width: 15%;
-    float: right;
-    margin-right: 2px;
-    top:315px;
-    right: 80px;
-    
-    
-    
-
-}
-
-h4{
-    float: right;
-    margin-right: 295px;
-    margin-top: 20%;
-   
-   
-
-   
-    
+.textAnchor{
+    text-anchor: right;
 }
 
 #playerTitle, #botTitle{
     margin-right: 35%;
-    font-family: 'battlesbridge_demoregular';
-    src: url('battlesbridgedemo-al126-webfont.woff2') format('woff2'),
-         url('battlesbridgedemo-al126-webfont.woff') format('woff');
+    font-family: "Lucida Handwriting", cursive;
     font-weight: normal;
     font-style: normal;
     stroke: rgb(29, 225, 166);
@@ -88,66 +63,23 @@ h4{
 
 #title{
     margin-right: -35%;
-    font-family: 'battlesbridge_demoregular';
-    src: url('battlesbridgedemo-al126-webfont.woff2') format('woff2'),
-         url('battlesbridgedemo-al126-webfont.woff') format('woff');
+    font-family: "Lucida Handwriting", cursive;
+
     font-weight: normal;
     font-style: normal;
 
 }
 
-.gameDiv{
-    background-image: url("back.png");
-}
 
-button{
-    margin-right: -900px;
-    margin-top: -1000px;
-    color: white ;
-    background-color: #cb210e;
-    border-radius: 30px;
-    font-family: 'battlesbridge_demoregular';
-    src: url('battlesbridgedemo-al126-webfont.woff2') format('woff2'),
-         url('battlesbridgedemo-al126-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-size: 35px;
-
-    border-color: #bdd4e8;
-    border-width: 4px;
-    
-    width: 200px;
-    height: 50px;
-   
-}
-
-button:hover{
-    margin-right: -900px;
-    color: rgb(196, 193, 193);
-    background-color: #93170c;
-    border-radius: 30px;
-    font-family: 'battlesbridge_demoregular';
-    src: url('battlesbridgedemo-al126-webfont.woff2') format('woff2'),
-         url('battlesbridgedemo-al126-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-size: 35px;
-    border-color: #4c5e6d;
-    
-    width: 200px;
-    height: 50px;
-
-}
 
 #loadingGif{
     width: 55px;
     height: 55px;
-    top: 500px;
+    top: 650px;
 
     position:absolute;
     left: 1280px;
-    
-   
+
     
 }
 
@@ -160,3 +92,62 @@ button:hover{
     
 }
 
+#botImage{
+    display: block;
+    margin-left: 60%;
+    position: absolute;
+    
+    width: 30%;
+    float: right;
+   
+    top:315px;
+    right: 78px;
+}
+
+#botSpeech{
+    
+    position:absolute;
+    margin-left: 70%;
+    margin-top: 38%;
+    text-indent: 10px;
+    font-size: larger;
+    
+    
+}
+
+.gameDiv{
+    background-image: url("back.png");
+}
+
+button{
+    margin-right: -850px;
+    margin-top: -1000px;
+    color: white ;
+    background-color: #cb210e;
+    border-radius: 25px;
+    font-family: 'battlesbridge_demoregular';
+    src: url('battlesbridgedemo-al126-webfont.woff2') format('woff2'),
+         url('battlesbridgedemo-al126-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-size: 35px;
+
+    border-color: #bdd4e8;
+    border-width: 4px;
+    
+    width: 280px;
+    height: 50px;
+   
+}
+
+button:hover{
+    border-radius: 18px;
+    font-family: 'battlesbridge_demoregular';
+    src: url('battlesbridgedemo-al126-webfont.woff2') format('woff2'),
+         url('battlesbridgedemo-al126-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    
+    border-color: #4c5e6d;
+
+}

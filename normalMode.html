@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Battleships</title>
     <link rel = stylesheet href="normalMode.css">
-    <link rel="icon" type="image/x-icon" href="logo.png">
+    <link rel="icon" type="image/x-icon" href="icon.png">
    
 </head>
 <body>
@@ -30,7 +30,7 @@
     <img id = botImage>
     
     
-    <h4 id = botSpeech></h4>
+   <a class = textAnchor><h4 id = botSpeech></h4></a> 
     
   
    
@@ -201,7 +201,7 @@
             <tr>
                 <td class=border>I</td>
     
-                <td id="80" class=cell onclick=cellClicked(this) onmouseover=cellHover(this) onmouseleave=cellReset(this)></td>
+                <td id="80" class=cell onclick=cellClicked(this) onmouseover=cellHover(this) onmouseleave=cellReset(this) onkeypress=rotateShip(this)></td>
                 <td id="81" class=cell onclick=cellClicked(this) onmouseover=cellHover(this) onmouseleave=cellReset(this)></td>
                 <td id="82" class=cell onclick=cellClicked(this) onmouseover=cellHover(this) onmouseleave=cellReset(this)></td>
                 <td id="83" class=cell onclick=cellClicked(this) onmouseover=cellHover(this) onmouseleave=cellReset(this)></td>
