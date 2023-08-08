@@ -81,7 +81,37 @@ const hitBotSpeech = [ // dialogue for bot to say when his boat gets hit
     "Why has god abandoned us?",
     "YOU'RE ON THIN ICE BUCKO!",
     "YOU RAPSCALLION!",
-    "YOU SCOUNDREL!"
+    "YOU SCOUNDREL!",
+    "Direct hit!",
+    "Ouch, you got me.",
+    "That was a good shot.",
+    "My ship's taking damage.",
+    "I'm hit!",
+    "Nice aim!",
+    "I need to rethink my strategy.",
+    "Time to retaliate.",
+    "Can't believe you found my ship.",
+    "Alright, my turn to strike back.",
+    "Well played!",
+    "I'm in trouble now.",
+    "One of my ships is sinking.",
+    "Better be more careful next time.",
+    "Still a long way to go.",
+    "You're on fire!",
+    "I'll get you next time.",
+    "This game just got interesting.",
+    "Enemy on target.",
+    "Ship integrity compromised.",
+    "Let's see if you can find my other ships.",
+    "I'm not giving up!",
+    "Battle on!",
+    "Enemy's making a comeback.",
+    "My fleet's dwindling.",
+    "I underestimated your skill.",
+    "Brace for impact!",
+    "Damage control time.",
+    "Got to protect my remaining ships.",
+    "Your strategy is working."
 
 ]
 
@@ -150,11 +180,13 @@ document.getElementById("guessDiv").style.display = "none"
 document.getElementById("botSpeech").innerHTML = miscBotSpeech[Math.floor((Math.random() * miscBotSpeech.length) + 0)]
 document.getElementById("botImage").src = "evil.jpg"
 document.getElementById("loadingGif").style.display = "none"
+document.getElementById("winDiv").style.display = "none"
+document.getElementById("loseDiv").style.display = "none"
 
 
 
 
-document.addEventListener("keydown", function (key){
+document.addEventListener("keydown", function (key){ //when the "r" key is pressed
     if (key.keyCode === 82) {
         
 
@@ -165,7 +197,7 @@ document.addEventListener("keydown", function (key){
 
 
 
-function cellHover(tablecell){
+/*function cellHover(tablecell){ //when the cursor hovers over the cell
     if(submitt == false){
 
         
@@ -217,8 +249,8 @@ function cellReset(tablecell){
    
 
 }
-
-function rotateShip(tablecell){
+*/
+function rotateShip(tablecell){ //rotates the ship
     
     if (boatRotation !== 1 ){
         boatRotation = 1
@@ -244,19 +276,16 @@ function rotateShip(tablecell){
 }
 
 
-function cellClicked(tablecell){
+function cellClicked(tablecell){ //Activates when a cell is clicked during the placement phase
 
     //alert(tablecell.id)
     var boatPos = tablecell.id //position of center cell of boat
-    var boatPosTop = boatPos - 10
-    var boatPosBottom = boatPos - - 10
-    var boatPosLeft = boatPos - 1
-    var boatPosRight = boatPos - - 1
-    var invalid = false
+    var boatPosTop = boatPos - 10 //top of boat
+    var boatPosBottom = boatPos - - 10 //bottom of boat
+    var boatPosLeft = boatPos - 1 //left of boat
+    var boatPosRight = boatPos - - 1 //right of boat
+    var invalid = false//checks if placement is valid
   
-   
-
-    
 
 
     if (boatCount<5) {  // Vertical placement
@@ -372,6 +401,11 @@ function cellClicked(tablecell){
 }
 
 function submit() { //Changes the div, does bot boat placement
+    if (boatCount ==4){
+        alert("Please place 1 more ship to proceed.")
+    } else if(boatCount !==5 ){
+        alert("Please place " + (5-boatCount) + " more ships to proceed.")
+    } else
     if (boatCount == 5 && submitt == false) {
         document.getElementById("playerDiv").style.display = "none"
         document.getElementById("playerTitle").style.display = "none"
@@ -394,6 +428,7 @@ function submit() { //Changes the div, does bot boat placement
             var botRotation = Math.floor((Math.random() * 2) + 1)
             botCount = botCount + 1
             botBoatPos= botBoatPos.toString()
+            
 
             if (botBoatPos<10){
                 botBoatPos= "0"+botBoatPos
@@ -412,12 +447,14 @@ function submit() { //Changes the div, does bot boat placement
             if (botRotation == 1 && (botBoatPos.substring(0, 1)!== "0") && (botBoatPos.substring(0, 1)!=="9") && bInvalid == false ){
                 bbNum[botCount] = botPosTop.toString() + botBoatPos.toString() + botPosBottom.toString();
                 bshipParameters();
+              
             }
                 
                 
             if (botRotation == 2 && (botBoatPos.substring(1, 2)!=="9" && (botBoatPos.substring(1, 2)!=="0")) && botBoatPos!=="9" && botBoatPos!=="0" && bInvalid == false){
                 bbNum[botCount] = botPosLeft.toString() + botBoatPos.toString() + botPosRight.toString();
                 bshipParameters();
+               
             }
 
 
@@ -468,7 +505,11 @@ function submit() { //Changes the div, does bot boat placement
                     } 
 
                     else{
+                      
+
                     }
+
+                    
     
                 }
 
@@ -493,6 +534,8 @@ function submit() { //Changes the div, does bot boat placement
 
         
     }
+
+    
 }
 
 function cellClicked2(tablecell2) { // Called when a player clicks on a cell to attack
@@ -587,13 +630,25 @@ function cellClicked2(tablecell2) { // Called when a player clicks on a cell to 
     }
     else if (hitcellnum == 15){
         alert("You Win")
+        document.getElementById("gameDiv").style.display = "none"
+        document.getElementById("winDiv").style.display = "block"
+        setTimeout(playAgain,2000)
+        
         document.getElementById(fire).style.backgroundColor = "red"
     }
+
+
 
     
  
 
 }  // peter is cool !!!!!!!!
+
+function playAgain(){
+    document.getElementById("replayButton").style.display = "block"
+    document.getElementById("homeButton").style.display = "block"
+    
+}
 
 function botLoad(){
     document.getElementById("loadingGif").style.display = "block";
@@ -601,7 +656,7 @@ function botLoad(){
     document.getElementById("playerTitle").style.display = "block"
     document.getElementById("guessDiv").style.display = "none";
     document.getElementById("botTitle").style.display = "none";
-    setTimeout(botGuess,Math.floor(Math.random(1000) * 3000))
+    setTimeout(botGuess,Math.floor(Math.random(500) * 2500))
 
 }
 
@@ -618,6 +673,8 @@ function botGuess () { //The bot guesses where the players boats are. The majori
     var botsunk = false
     var m = 1
     botSC1 = 0
+
+    if (hits!==25){
 
     for (q=1;q<6;q++) { // check if boat is sunk by checking each cell of a boat and if all variables a, b and c all equal true then boat is sunk
         var a = false
@@ -1735,5 +1792,12 @@ function botGuess () { //The bot guesses where the players boats are. The majori
 
     }
 
-    
+} else{
+
+    document.getElementById("loseDiv").style.display = "block"
+    document.getElementById("gameDiv").style.display = "none"
+    setTimeout(playAgain,2000)
+
+}
+
 }

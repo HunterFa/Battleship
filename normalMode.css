@@ -9,9 +9,6 @@ body {
 }
 
 
-
-
-
 table, th {
     border: 5px solid black;
     border-collapse: collapse;
@@ -32,9 +29,7 @@ td{
     
 }
 
-.cell:hover{
-    background-color: green;
-}
+
 
 .cell {
     background-color: cornflowerblue
@@ -46,13 +41,11 @@ td{
 
 
 
-.textAnchor{
-    text-anchor: right;
-}
+
 
 #playerTitle, #botTitle{
     margin-right: 35%;
-    font-family: "Lucida Handwriting", cursive;
+    font-family: "Lucida Grande", cursive;
     font-weight: normal;
     font-style: normal;
     stroke: rgb(29, 225, 166);
@@ -63,7 +56,7 @@ td{
 
 #title{
     margin-right: -35%;
-    font-family: "Lucida Handwriting", cursive;
+    
 
     font-weight: normal;
     font-style: normal;
@@ -75,10 +68,10 @@ td{
 #loadingGif{
     width: 55px;
     height: 55px;
-    top: 650px;
+    top: 28%;
 
     position:absolute;
-    left: 1280px;
+    left: 1125px;
 
     
 }
@@ -107,10 +100,13 @@ td{
 #botSpeech{
     
     position:absolute;
-    margin-left: 70%;
-    margin-top: 38%;
+    margin-left: 63%;
+    margin-top: 40%;
     text-indent: 10px;
-    font-size: larger;
+    font-size: 40px;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: rgb(255, 255, 255);
+    font-family: "Lucida Grande", cursive;
     
     
 }
@@ -125,11 +121,12 @@ button{
     color: white ;
     background-color: #cb210e;
     border-radius: 25px;
-    font-family: 'battlesbridge_demoregular';
-    src: url('battlesbridgedemo-al126-webfont.woff2') format('woff2'),
-         url('battlesbridgedemo-al126-webfont.woff') format('woff');
+
+    font-family: "Lucida Grande", cursive;
+
+
     font-weight: normal;
-    font-style: normal;
+   
     font-size: 35px;
 
     border-color: #bdd4e8;
@@ -142,12 +139,28 @@ button{
 
 button:hover{
     border-radius: 18px;
-    font-family: 'battlesbridge_demoregular';
-    src: url('battlesbridgedemo-al126-webfont.woff2') format('woff2'),
-         url('battlesbridgedemo-al126-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+    font-family: "Lucida Grande", cursive;
+
     
     border-color: #4c5e6d;
+
+}
+
+#winDiv{
+    
+}
+
+#winText{
+    color: green;
+    text-align: center;
+    font-size: 430px;
+
+}
+
+#loseText{
+    color: red;
+    text-align: center;
+    font-size: 430px;
+
 
 }

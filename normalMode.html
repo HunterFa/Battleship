@@ -11,13 +11,14 @@
 </head>
 <body>
 
-    <img id="logoImage" src="logo.png">
+   
     
 
     <div style= "fill-opacity: 0.3; background-image: url('1486722.jpg');" > 
        
     
-<div id = gameDiv></div>
+<div id = gameDiv>
+    <img id="logoImage" src="logo.png">
 
 <br>
     <h1 id = playerTitle>Your Board</h1>
@@ -30,7 +31,7 @@
     <img id = botImage>
     
     
-   <a class = textAnchor><h4 id = botSpeech></h4></a> 
+    <mark><h4 id = botSpeech>  </h4></mark>
     
   
    
@@ -201,7 +202,7 @@
             <tr>
                 <td class=border>I</td>
     
-                <td id="80" class=cell onclick=cellClicked(this) onmouseover=cellHover(this) onmouseleave=cellReset(this) onkeypress=rotateShip(this)></td>
+                <td id="80" class=cell onclick=cellClicked(this) onmouseover=cellHover(this) onmouseleave=cellReset(this)></td>
                 <td id="81" class=cell onclick=cellClicked(this) onmouseover=cellHover(this) onmouseleave=cellReset(this)></td>
                 <td id="82" class=cell onclick=cellClicked(this) onmouseover=cellHover(this) onmouseleave=cellReset(this)></td>
                 <td id="83" class=cell onclick=cellClicked(this) onmouseover=cellHover(this) onmouseleave=cellReset(this)></td>
@@ -432,6 +433,17 @@
             
             
         </div id=guessDiv>
+    </div>
+
+        <div id = "winDiv">
+            <h1 id = "winText">You WIN!</h1>
+        </div>
+
+        <div id = "loseDiv">
+            <h1 id = "loseText"> You LOSE!</h1>
+            <button id = "replayButton" onclick="window.location.href = 'normalMode.html';">Play Again</button>
+            <button id = "homeButton" onclick="window.location.href = 'index.html';">Home</button>
+        </div>
             
             
             <script src = "normalMode.js"></script>
