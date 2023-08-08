@@ -5,7 +5,7 @@ var boatCount = 0 //The number of boats the player has placed
 var boatNum = [] //Sequence of numbers that correspond to specific cell ids in the table
 var boatNum2 = ["0","0","0","0","0"] //Version of boatNum without certain boats placed to check if boats are inside eachother
 var botCount = 0; //The amount of boats the bot has placed
-var bbNum = []; //Sequence of numbers that correspond to specific cell ids in the table
+var bbNum = ["0","0","0","0","0","0"]; //Sequence of numbers that correspond to specific cell ids in the table
 var bbNum2 = ["0","0","0","0","0","0"] //Version of boatNum without certain boats placed to check if boats are inside eachother
 var submitt = false //
 var hitcellnum = 0 //The amount of cells that have been hit
@@ -38,7 +38,6 @@ mousecellid = 0
   -Make continue button disappear when it shouldnt be pressed
   -Make boats real boats
   -Make a win / Lose scene
-  -Make "extreme mode" (maybe)
   -Full screen prompt
   -"How to play" menu
   -Home screen revamp
@@ -465,7 +464,7 @@ function submit() { //Changes the div, does bot boat placement
                 botPosTop = "0" + botPosTop
             }
         
-            if (botBoatPos<9) {
+            if (botBoatPos<10) {
                 botPosLeft = "0" + botPosLeft.toString()
                 botPosRight = "0" + botPosRight.toString()
         
@@ -482,12 +481,6 @@ function submit() { //Changes the div, does bot boat placement
                 bshipParameters();
             }
 
-
-            else {         
-                bbNum[botCount] = 0   
-                bbNum2[botCount] = "0"
-                botCount = botCount - 1
-            }
             function bshipParameters(){
                 for (i=1;i<botCount+1;i++) {
                     var y = bbNum[botCount]
@@ -530,11 +523,36 @@ function submit() { //Changes the div, does bot boat placement
                     } 
 
                     else{
+
+
                     }
     
                 }
 
+                if (botRotation== 1 && bInvalid == false) {
+                    document.getElementById(botPosTop+"a").style.backgroundColor = "pink"
+                    document.getElementById(botBoatPos+"a").style.backgroundColor = "pink"
+                    document.getElementById(botPosBottom+"a").style.backgroundColor = "pink"
+                }
+                else if(bInvalid == false){
+                    document.getElementById(botPosLeft+"a").style.backgroundColor = "pink"
+                    document.getElementById(botBoatPos+"a").style.backgroundColor = "pink"
+                    document.getElementById(botPosRight+"a").style.backgroundColor = "pink"
+                }
+
                 
+            }
+
+            if (bbNum[botCount].length == 6 && bInvalid == true){
+                bbNum[botCount] = "0"   
+                bbNum2[botCount] = "0"
+                botCount = botCount - 1
+            }
+            else if(bbNum[botCount].length <6){
+                botCount = botCount - 1
+            }
+            else {
+
             }
 
                 bbNum2[botCount] =  bbNum[botCount]
@@ -647,9 +665,9 @@ function cellClicked2(tablecell2) { // Called when a player clicks on a cell to 
         playerTurn = false
 
     }
-    else if (hitcellnum == 15){
+    else if (hitcellnum > 13){
+        document.getElementById(fire).style.backgroundColor = "red"        
         alert("You Win")
-        document.getElementById(fire).style.backgroundColor = "red"
     }
 
     
