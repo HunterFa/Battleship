@@ -529,6 +529,7 @@ function submit() { //Changes the div, does bot boat placement
     
                 }
 
+                /*
                 if (botRotation== 1 && bInvalid == false) {
                     document.getElementById(botPosTop+"a").style.backgroundColor = "pink"
                     document.getElementById(botBoatPos+"a").style.backgroundColor = "pink"
@@ -539,7 +540,7 @@ function submit() { //Changes the div, does bot boat placement
                     document.getElementById(botBoatPos+"a").style.backgroundColor = "pink"
                     document.getElementById(botPosRight+"a").style.backgroundColor = "pink"
                 }
-
+                */
                 
             }
 
