@@ -38,18 +38,26 @@ body { /* Everything in the body*/
     color: white ;
     background-color: #cb210e;
     border-radius: 35px;
-    font-family: 'battlesbridge_demoregular';
-    src: url('battlesbridgedemo-al126-webfont.woff2') format('woff2'),
-         url('battlesbridgedemo-al126-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-size: 20px;
+ 
+
 
     border-color: #bdd4e8;
     border-width: 4px;
     
-    width: 200px;
+    width: auto;
     height: 50px;
+
+    font-style: normal;
+    padding-inline: 30px;
+   
+    
+
+    font-family: "Lucida Grande", cursive;
+
+
+    font-weight: normal;
+   
+    font-size: 35px;
    
 }
 
@@ -58,14 +66,19 @@ button:hover{ /*hovering of all buttons */
     
 
  
-    border-radius: 18px;
-    font-family: 'battlesbridge_demoregular';
-    src: url('battlesbridgedemo-al126-webfont.woff2') format('woff2'),
-         url('battlesbridgedemo-al126-webfont.woff') format('woff');
-    font-weight: normal;
+   
+  
+
     font-style: normal;
-    font-size: 20px;
+   
     border-color: #4c5e6d;
+
+    font-family: "Lucida Grande", cursive;
+
+
+    font-weight: normal;
+   
+    font-size: 35px;
     
    
   
@@ -73,24 +86,18 @@ button:hover{ /*hovering of all buttons */
 }
 
 
-.button{ 
-    padding: 5px; 
-    background-color: rgb(119, 45, 45); 
-    border: 1px solid #666291; 
-    color: rgb(34, 255, 0); 
-
-  } 
 
   .closeButton{
     color: white ;
     background-color: #cb210e;
     border-radius: 35px;
-    font-family: 'battlesbridge_demoregular';
-    src: url('battlesbridgedemo-al126-webfont.woff2') format('woff2'),
-         url('battlesbridgedemo-al126-webfont.woff') format('woff');
+    width:auto;
+  
+   
+
     font-weight: normal;
-    font-style: normal;
-    font-size: 20px;
+    font-size: 35px;
+    
 
     position:absolute;
     right: 380px;
@@ -105,10 +112,10 @@ button:hover{ /*hovering of all buttons */
 
 .bradImage{
     text-align: center;
-    width: 220px;
+    width: 290px;
     position: absolute;
     top: 43%;
-    left: 42.5%;
+    left: 40%;
     
 }
 

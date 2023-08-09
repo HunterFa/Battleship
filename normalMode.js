@@ -7,7 +7,7 @@ var boatNum2 = ["0","0","0","0","0"] //Version of boatNum without certain boats 
 var botCount = 0; //The amount of boats the bot has placed
 var bbNum = ["0","0","0","0","0","0"]; //Sequence of numbers that correspond to specific cell ids in the table
 var bbNum2 = ["0","0","0","0","0","0"] //Version of boatNum without certain boats placed to check if boats are inside eachother
-var submitt = false //
+var submitt = false //Determines if continue button should be used or not
 var hitcellnum = 0 //The amount of cells that have been hit
 var firedatabase = [] //Player shot storage
 var allshots = [] //Every shot and id of that cell that has been taken
@@ -15,17 +15,14 @@ var allshotsCount = 0 //All shots that have been taken (hits and misses)
 var playerTurn = true //Determines if its the player or bot's turn
 var botfirehistory = [] //The history 
 var botfirecount = 0 //The amount of shots that the bot has taken
-var botLastShot = [] //NOT USED
-var botHitCount = 0 // 
 var hits = 0 //The amount of cells that have been hit
-var hitcheck1 = 0 //
-var hitcheck2 = 0 //
 var peter = 0 //peter variable
 var tfHistory = [] // converts botfirehistroy into true or false statments hit=true miss=false
 var botSC1 = 0 //The amount of boats the boat has sunk
 var botSC2 = 0 //Version of botSC1 without certain boats placed to check if boats are inside eachother
 var openLoop = 0 //Failsafe
 mousecellid = 0
+var nhit = 0
 
 
 
@@ -85,27 +82,6 @@ const hitBotSpeech = [ // dialogue for bot to say when his boat gets hit
     "I need to rethink my strategy.",
     "Time to retaliate.",
     "Can't believe you found my ship.",
-    "Alright, my turn to strike back.",
-    "Well played!",
-    "I'm in trouble now.",
-    "One of my ships is sinking.",
-    "Better be more careful next time.",
-    "Still a long way to go.",
-    "You're on fire!",
-    "I'll get you next time.",
-    "This game just got interesting.",
-    "Enemy on target.",
-    "Ship integrity compromised.",
-    "Let's see if you can find my other ships.",
-    "I'm not giving up!",
-    "Battle on!",
-    "Enemy's making a comeback.",
-    "My fleet's dwindling.",
-    "I underestimated your skill.",
-    "Brace for impact!",
-    "Damage control time.",
-    "Got to protect my remaining ships.",
-    "Your strategy is working."
 
 ]
 
@@ -147,7 +123,7 @@ const botMissSpeech = [
     "Im getting close! I can feel it!",
     "Rahhh i missed :((",
     "I missed!",
-    "I can't find your boats >:(",
+    "I can't find your boats rahh",
     "Where are your boats?!?!?!",
     "DAMMIT!",
     "I can smell your boat...",
@@ -176,6 +152,7 @@ document.getElementById("botImage").src = "evil.jpg"
 document.getElementById("loadingGif").style.display = "none"
 document.getElementById("winDiv").style.display = "none"
 document.getElementById("loseDiv").style.display = "none"
+document.getElementById("replayDiv").style.display = "none"
 
 
 
@@ -563,7 +540,7 @@ function submit() { //Changes the div, does bot boat placement
     
                 }
 
-                /*
+                
                 if (botRotation== 1 && bInvalid == false) {
                     document.getElementById(botPosTop+"a").style.backgroundColor = "pink"
                     document.getElementById(botBoatPos+"a").style.backgroundColor = "pink"
@@ -574,7 +551,7 @@ function submit() { //Changes the div, does bot boat placement
                     document.getElementById(botBoatPos+"a").style.backgroundColor = "pink"
                     document.getElementById(botPosRight+"a").style.backgroundColor = "pink"
                 }
-                */
+                
                 
             }
 
@@ -623,8 +600,16 @@ function cellClicked2(tablecell2) { // Called when a player clicks on a cell to 
         else {
         }
     }
-
-    if (hitcellnum < 15 && alreadyClicked == false && playerTurn == true) {
+    if (hitcellnum ==14 ){
+        document.getElementById(fire).style.backgroundColor = "red"        
+        alert("You Win")
+        document.getElementById("gameDiv").style.display = "none"
+        document.getElementById("winDiv").style.display = "block"
+        setTimeout(playAgain,1700) 
+        document.getElementById(fire).style.backgroundColor = "red"
+    }
+    else
+    if (hitcellnum < 15 && alreadyClicked == false && playerTurn == true && document.getElementById(tablecell2.id).style.backgroundColor !== "red" && document.getElementById(tablecell2.id).style.backgroundColor !== "white" ) {
     
         var hit = false
         var m = 1
@@ -699,25 +684,21 @@ function cellClicked2(tablecell2) { // Called when a player clicks on a cell to 
         playerTurn = false
 
     }
-    else if (hitcellnum > 13){
-        document.getElementById(fire).style.backgroundColor = "red"        
-        alert("You Win")
-        document.getElementById("gameDiv").style.display = "none"
-        document.getElementById("winDiv").style.display = "block"
-        setTimeout(playAgain,2000) 
-        document.getElementById(fire).style.backgroundColor = "red"
-    }
+    
 
 
-
+}
     
  
 
-}  // peter is cool !!!!!!!!
+  // peter is cool !!!!!!!!
 
 function playAgain(){
-    document.getElementById("replayButton").style.display = "block"
-    document.getElementById("homeButton").style.display = "block"
+    document.getElementById("loseDiv").style.display = "none"
+    document.getElementById("winDiv").style.display = "none"
+
+    document.getElementById("replayDiv").style.display = "block"
+
     
 }
 
@@ -727,7 +708,7 @@ function botLoad(){
     document.getElementById("playerTitle").style.display = "block"
     document.getElementById("guessDiv").style.display = "none";
     document.getElementById("botTitle").style.display = "none";
-    setTimeout(botGuess,Math.floor(Math.random(500) * 2500))
+    setTimeout(botGuess,Math.floor(Math.random(0) * 1))
 
 }
 
@@ -744,8 +725,16 @@ function botGuess () { //The bot guesses where the players boats are. The majori
     var botsunk = false
     var m = 1
     botSC1 = 0
+    
+    if (nhit > 13){
+        alert("balls")
+        document.getElementById("loseDiv").style.display = "block"
+        document.getElementById("gameDiv").style.display = "none"
+        setTimeout(playAgain,1700)
 
-    if (hits!==25){
+    }
+
+    
 
     for (q=1;q<6;q++) { // check if boat is sunk by checking each cell of a boat and if all variables a, b and c all equal true then boat is sunk
         var a = false
@@ -904,6 +893,7 @@ function botGuess () { //The bot guesses where the players boats are. The majori
 
             if (hit == true) {
                 document.getElementById(fire).style.backgroundColor = "red"
+                nhit++
                 document.getElementById("botSpeech").innerHTML = winningBotSpeech[Math.floor((Math.random() * winningBotSpeech.length) + 0)]
                 document.getElementById("botImage").src ="happy.jpg"
                 hits = hits + 1
@@ -1023,7 +1013,7 @@ function botGuess () { //The bot guesses where the players boats are. The majori
 
             if (hit == true) {
                 document.getElementById(fire).style.backgroundColor = "red"
-
+                nhit++
                 document.getElementById("botSpeech").innerHTML = winningBotSpeech[Math.floor((Math.random() * winningBotSpeech.length) + 0)]
                 document.getElementById("botImage").src ="happy.jpg"
                 hits = hits + 1
@@ -1136,7 +1126,7 @@ function botGuess () { //The bot guesses where the players boats are. The majori
 
             if (hit == true) { //If hit, cell becomes red. If miss, cell is white.
                 document.getElementById(fire).style.backgroundColor = "red"
-
+                nhit++
                 document.getElementById("botSpeech").innerHTML = winningBotSpeech[Math.floor((Math.random() * winningBotSpeech.length) + 0)]
                 document.getElementById("botImage").src ="happy.jpg"
                 hits = hits + 1
@@ -1251,6 +1241,7 @@ function botGuess () { //The bot guesses where the players boats are. The majori
 
             if (hit == true) {
                 document.getElementById(fire).style.backgroundColor = "red"
+                nhit++
                 document.getElementById("botSpeech").innerHTML = winningBotSpeech[Math.floor((Math.random() * winningBotSpeech.length) + 0)]
                 document.getElementById("botImage").src ="happy.jpg"
                 hits = hits + 1
@@ -1369,6 +1360,7 @@ function botGuess () { //The bot guesses where the players boats are. The majori
 
             if (hit == true) {
                 document.getElementById(fire).style.backgroundColor = "red"
+                nhit++
                 document.getElementById("botSpeech").innerHTML = winningBotSpeech[Math.floor((Math.random() * winningBotSpeech.length) + 0)]
                 document.getElementById("botImage").src ="happy.jpg"
                 hits = hits + 1
@@ -1502,6 +1494,7 @@ function botGuess () { //The bot guesses where the players boats are. The majori
 
             if (hit == true) {
                 document.getElementById(fire).style.backgroundColor = "red"
+                nhit++
                 document.getElementById("botSpeech").innerHTML = winningBotSpeech[Math.floor((Math.random() * winningBotSpeech.length) + 0)]
                 document.getElementById("botImage").src ="happy.jpg"
                 hits = hits + 1                    
@@ -1627,6 +1620,7 @@ function botGuess () { //The bot guesses where the players boats are. The majori
 
             if (hit == true) {
                 document.getElementById(fire).style.backgroundColor = "red"
+                nhit++
                 document.getElementById("botSpeech").innerHTML = winningBotSpeech[Math.floor((Math.random() * winningBotSpeech.length) + 0)]
                 document.getElementById("botImage").src ="happy.jpg"
                 hits = hits + 1      
@@ -1751,6 +1745,7 @@ function botGuess () { //The bot guesses where the players boats are. The majori
 
             if (hit == true) {
                 document.getElementById(fire).style.backgroundColor = "red"
+                nhit++
                 document.getElementById("botSpeech").innerHTML = winningBotSpeech[Math.floor((Math.random() * winningBotSpeech.length) + 0)]
                 document.getElementById("botImage").src ="happy.jpg"
                 hits = hits + 1 
@@ -1866,6 +1861,7 @@ function botGuess () { //The bot guesses where the players boats are. The majori
             if (hit == true) {
                 try {
                     document.getElementById(fire).style.backgroundColor = "red"
+                    
                     document.getElementById("botSpeech").innerHTML = winningBotSpeech[Math.floor((Math.random() * winningBotSpeech.length) + 0)]
                 document.getElementById("botImage").src ="happy.jpg"
                 } catch {
@@ -1894,12 +1890,9 @@ function botGuess () { //The bot guesses where the players boats are. The majori
 
     }
 
-} else{
+} 
 
-    document.getElementById("loseDiv").style.display = "block"
-    document.getElementById("gameDiv").style.display = "none"
-    setTimeout(playAgain,2000)
+   
 
-}
 
-}
+

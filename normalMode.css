@@ -68,10 +68,10 @@ td{
 #loadingGif{
     width: 55px;
     height: 55px;
-    top: 28%;
+    top: 13.5%;
 
     position:absolute;
-    left: 1125px;
+    left: 1365px;
 
     
 }
@@ -146,21 +146,49 @@ button:hover{
 
 }
 
-#winDiv{
-    
-}
+
 
 #winText{
     color: green;
     text-align: center;
-    font-size: 430px;
+    font-size: 300px;
+    font-family: "Lucida Grande", cursive;
 
 }
 
 #loseText{
     color: red;
     text-align: center;
-    font-size: 430px;
+    font-size: 300px;
+    font-family: "Lucida Grande", cursive;
 
 
+}
+
+#replayDiv{ /*Buttons to be central */
+    text-align: center;
+    margin: 0;
+    position: absolute;
+    top: 90%;
+    left: 21%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+
+    
+}
+#endImage{
+    display: block;
+ margin-right: auto;
+ width: 400px;
+ position: absolute;
+ left: 235px;
+ bottom:100px;
+ 
+
+}
+
+#titleImage{
+    position:absolute;
+    left:-40px;
+    bottom: 460px;
 }
