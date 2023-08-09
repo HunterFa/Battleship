@@ -288,7 +288,7 @@ function rotateShip(){
         document.getElementById(i).style.backgroundColor = "cornflowerblue"
     }
 
-    
+
         var q = mousecellid - 10
         var s = mousecellid - - 10
         var a = mousecellid - 1
@@ -604,9 +604,6 @@ function submit() { //Changes the div, does bot boat placement
         document.getElementById("botTitle").style.display = "block"
         document.getElementById("guessDiv").style.display = "block"; 
         
-
-
-        
     }
 
     
@@ -831,7 +828,7 @@ function botGuess () { //The bot guesses where the players boats are. The majori
        || tfHistory[1] == true && tfHistory[2] == true && tfHistory[3] == false && tfHistory[4] == true
        || tfHistory[1] == true && tfHistory[2] == false && tfHistory[3] == true && tfHistory[4] == false
        || tfHistory[1] == true && tfHistory[2] == true && tfHistory[3] == true && tfHistory[4] == true
-       || botsunk == true 
+    
        ) 
        {
         
@@ -901,7 +898,7 @@ function botGuess () { //The bot guesses where the players boats are. The majori
                   
 
                 }
-            }
+            
             
 
 
@@ -922,6 +919,11 @@ function botGuess () { //The bot guesses where the players boats are. The majori
 
         botfirecount = botfirecount + 1
         botfirehistory[botfirecount] = fire
+    }
+    else {
+        botGuess()
+    }
+
 
     }
 
@@ -931,7 +933,7 @@ function botGuess () { //The bot guesses where the players boats are. The majori
         check = false
         hit = false
             
-        var random = Math.floor((Math.random() * 5) + 1)
+        var random = Math.floor((Math.random() * 4) + 1)
             
         if (random == 1) { // Makes bot decisions random after it has hit
             fire = botfirehistory[botfirecount] - 1
@@ -1049,7 +1051,7 @@ function botGuess () { //The bot guesses where the players boats are. The majori
         hit = false
         check = false
 
-        var random = Math.floor((Math.random() * 5) + 0)
+        var random = Math.floor((Math.random() * 4) + 1)
             
         if (random == 1) {
             fire = botfirehistory[botfirecount-1] - 1
@@ -1163,7 +1165,7 @@ function botGuess () { //The bot guesses where the players boats are. The majori
         check = false 
         hit = false
 
-        var random = Math.floor((Math.random() * 5) + 0) //Makes bot guess random
+        var random = Math.floor((Math.random() * 4) + 1) //Makes bot guess random
             
         if (random == 1) {
             fire = botfirehistory[botfirecount-2] - 1
@@ -1277,7 +1279,7 @@ function botGuess () { //The bot guesses where the players boats are. The majori
         hit = false
         check = false
             
-        var random = Math.floor((Math.random() * 5) + 0)
+        var random = Math.floor((Math.random() * 4) + 1)
             
         if (random == 1) {
             fire = botfirehistory[botfirecount-3] - 1
