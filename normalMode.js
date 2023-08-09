@@ -543,7 +543,7 @@ function submit() { //Changes the div, does bot boat placement
                 }
 
                 
-                if (botRotation== 1 && bInvalid == false) {
+              /*  if (botRotation== 1 && bInvalid == false) {
                     document.getElementById(botPosTop+"a").style.backgroundColor = "pink"
                     document.getElementById(botBoatPos+"a").style.backgroundColor = "pink"
                     document.getElementById(botPosBottom+"a").style.backgroundColor = "pink"
@@ -552,7 +552,7 @@ function submit() { //Changes the div, does bot boat placement
                     document.getElementById(botPosLeft+"a").style.backgroundColor = "pink"
                     document.getElementById(botBoatPos+"a").style.backgroundColor = "pink"
                     document.getElementById(botPosRight+"a").style.backgroundColor = "pink"
-                }
+                }*/
                 
                 
             }
@@ -710,7 +710,8 @@ function botLoad(){
     document.getElementById("playerTitle").style.display = "block"
     document.getElementById("guessDiv").style.display = "none";
     document.getElementById("botTitle").style.display = "none";
-    setTimeout(botGuess,Math.floor(Math.random(0) * 1))
+
+    setTimeout(botGuess,Math.floor(Math.random(500) * 1700))
 
 }
 
@@ -718,6 +719,7 @@ function botGuess () { //The bot guesses where the players boats are. The majori
 
    
     document.getElementById("loadingGif").style.display = "none"
+  
     
 
 
@@ -766,7 +768,7 @@ function botGuess () { //The bot guesses where the players boats are. The majori
     }
 
     if (botBoatSunk == true){
-        alert("balls")
+        
         document.getElementById("loseDiv").style.display = "block"
         document.getElementById("gameDiv").style.display = "none"
         setTimeout(playAgain,1700)
