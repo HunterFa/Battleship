@@ -21,10 +21,7 @@ var tfHistory = [] // converts botfirehistroy into true or false statments hit=t
 var botSC1 = 0 //The amount of boats the boat has sunk
 var botSC2 = 0 //Version of botSC1 without certain boats placed to check if boats are inside eachother
 var openLoop = 0 //Failsafe
-mousecellid = 0
-var nhit = 0
-var botBoatSunk= 0
-var sunkCount = 0
+var mousecellid = 0 //id of cell hovered over by curser
 
 
 
