@@ -1,8 +1,8 @@
 body { /* Everything in the body*/
     background-color: rgb(150, 185, 245);
-    background-image: url(background.jpg);
+    background-image: url("background.jpg");
     background-repeat: no-repeat;
-    background-size:contain
+    background-size:1920px;
     
     
 }
@@ -12,7 +12,7 @@ body { /* Everything in the body*/
     margin: 0;
     position: absolute;
     top: 30%;
-    left: 45%;
+    left: 46%;
     -ms-transform: translate(-10%, -10%);
     transform: translate(-10%, -10%);
     font-size: 70px;
@@ -93,7 +93,7 @@ button:hover{ /*hovering of all buttons */
     font-size: 20px;
 
     position:absolute;
-    right:400px;
+    right: 380px;
     top:30px;
     
   }
@@ -108,7 +108,7 @@ button:hover{ /*hovering of all buttons */
     width: 220px;
     position: absolute;
     top: 43%;
-    left: 43%;
+    left: 42.5%;
     
 }
 
@@ -119,9 +119,11 @@ button:hover{ /*hovering of all buttons */
 
 #manualImage{
 
+    width: 500px;
+
     position:absolute;
-    top: 43%;
-    left: 40%;
+    top: 10%;
+    left: 33%;
     
 }
 
