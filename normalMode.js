@@ -23,6 +23,8 @@ var botSC2 = 0 //Version of botSC1 without certain boats placed to check if boat
 var openLoop = 0 //Failsafe
 mousecellid = 0
 var nhit = 0
+var botBoatSunk= 0
+var sunkCount = 0
 
 
 
@@ -725,16 +727,9 @@ function botGuess () { //The bot guesses where the players boats are. The majori
     var botsunk = false
     var m = 1
     botSC1 = 0
-    
-    if (nhit > 13){
-        alert("balls")
-        document.getElementById("loseDiv").style.display = "block"
-        document.getElementById("gameDiv").style.display = "none"
-        setTimeout(playAgain,1700)
 
-    }
 
-    
+    var botBoatSunk = false
 
     for (q=1;q<6;q++) { // check if boat is sunk by checking each cell of a boat and if all variables a, b and c all equal true then boat is sunk
         var a = false
@@ -762,9 +757,21 @@ function botGuess () { //The bot guesses where the players boats are. The majori
         if (a == true && b == true && c == true) {
             botSC1 = botSC1 + 1
         }
+
         m = m + 1
     }
 
+    if (botSC1 == 5) {
+        botBoatSunk = true
+    }
+
+    if (botBoatSunk == true){
+        alert("balls")
+        document.getElementById("loseDiv").style.display = "block"
+        document.getElementById("gameDiv").style.display = "none"
+        setTimeout(playAgain,1700)
+
+    }
 
 
     for (i=1; i<5; i++) { // Checks the last 4 shots and labels them as T/F (Hit / Miss)
